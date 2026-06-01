@@ -15,4 +15,4 @@ Damos nuestra mayor gratitud a las docentes quienes nos permitieron cumplir con 
 * Astah
 
 ## NOTA A TENER EN CUENTA
-Si va a compartir el repositorio, leer la licencia. Así mismo, el documento del laboratorio 4 está incompleto debido a la falta de tiempo de realización en su debido momento.
+Si va a usar o citar material del repositorio, lea la licencia. Así mismo, el documento del laboratorio 4 está incompleto debido a la falta de tiempo de realización en su debido momento.
