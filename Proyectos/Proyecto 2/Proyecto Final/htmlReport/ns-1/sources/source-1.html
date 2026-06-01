@@ -1,0 +1,673 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GameEngine</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">domain.core</a>
+</div>
+
+<h1>Coverage Summary for Class: GameEngine (domain.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameEngine</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (24/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    43,9%
+  </span>
+  <span class="absValue">
+    (65/148)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50,4%
+  </span>
+  <span class="absValue">
+    (116/230)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package domain.core;
+&nbsp;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.File;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import domain.entities.Player;
+&nbsp;import domain.entities.Enemy;
+&nbsp;import domain.entities.Coin;
+&nbsp;import domain.level.Level;
+&nbsp;import domain.entities.factory.GameModeFactory;
+&nbsp;import domain.entities.strategy.GameModeStrategy;
+&nbsp;import domain.save.memento.GameMemento;
+&nbsp;import java.awt.geom.Rectangle2D;
+&nbsp;
+&nbsp;/**
+&nbsp; * Clase que representa el motor del juego.
+&nbsp; *
+&nbsp; * @author Juan Pablo Cuervo Contreras
+&nbsp; * @author David Felipe Ortiz Salcedo
+&nbsp; * @version 16/05/2026
+&nbsp; */
+&nbsp;
+&nbsp;public class GameEngine implements Runnable {
+&nbsp;    private static GameEngine instance;
+&nbsp;    private Thread gameThread;
+&nbsp;    private volatile boolean running;
+&nbsp;    private volatile domain.core.GameState currentState;
+<b class="fc">&nbsp;    private final int FPS = 60;</b>
+<b class="fc">&nbsp;    private final long TARGET_TIME = 1000000000 / FPS;</b>
+&nbsp;
+&nbsp;    private Level currentLevel;
+<b class="fc">&nbsp;    private List&lt;Player&gt; players = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    private List&lt;GameObserver&gt; observers = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    private GameModeStrategy gameMode = GameModeFactory.createGameMode(&quot;Player&quot;);</b>
+<b class="fc">&nbsp;    private int remainingTime = 180;</b>
+&nbsp;    private long lastSecondTime;
+&nbsp;    private File currentLevelFile;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * El constructor privado de la clase GameEngine.
+&nbsp;     */
+<b class="fc">&nbsp;    private GameEngine() {</b>
+<b class="fc">&nbsp;        this.currentState = GameState.MENU;</b>
+&nbsp;    } // Cierre del constructor
+&nbsp;
+&nbsp;    /**
+&nbsp;     * El constructor que instancia la clase GameEngine.
+&nbsp;     *
+&nbsp;     * @return GameEngine La instancia de la clase GameEngine.
+&nbsp;     */
+&nbsp;    public static GameEngine getInstance() {
+<b class="fc">&nbsp;        if (instance == null) instance = new GameEngine();</b>
+<b class="fc">&nbsp;        return instance;</b>
+&nbsp;    } // Cierre del constructor
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que añade un observador al juego por si este murio.
+&nbsp;     *
+&nbsp;     * @param observer El observador a añadir.
+&nbsp;     */
+&nbsp;    public void addObserver(GameObserver observer) {
+<b class="fc">&nbsp;        observers.add(observer);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    public void setGameMode(String mode) {
+<b class="fc">&nbsp;        this.gameMode = GameModeFactory.createGameMode(mode);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que inicia el juego de modo que solo un hilo lo ejecute a la vez.
+&nbsp;     */
+&nbsp;    public synchronized void startGame() {
+<b class="nc">&nbsp;        if (running) return;</b>
+<b class="nc">&nbsp;        running = true;</b>
+<b class="nc">&nbsp;        gameThread = new Thread(this);</b>
+<b class="nc">&nbsp;        gameThread.start();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite pausar el juego.
+&nbsp;     */
+&nbsp;    public void pauseGame() {
+<b class="nc">&nbsp;        if (currentState == GameState.PLAYING) {</b>
+<b class="nc">&nbsp;            currentState = GameState.PAUSED;</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite reanudar el juego.
+&nbsp;     */
+&nbsp;    public void resumeGame() {
+<b class="nc">&nbsp;        if (currentState == GameState.PAUSED) {</b>
+<b class="nc">&nbsp;            currentState = GameState.PLAYING;</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que pausa el juego donde solo un hilo lo ejecute a la vez.
+&nbsp;     */
+&nbsp;    public synchronized void stopGame() {
+<b class="nc">&nbsp;        running = false;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite regresar al menu del juego.
+&nbsp;     */
+&nbsp;    public synchronized void returnToMenu() {
+<b class="fc">&nbsp;        running = false;</b>
+<b class="fc">&nbsp;        currentState = GameState.MENU;</b>
+<b class="fc">&nbsp;        currentLevel = null;</b>
+<b class="fc">&nbsp;        players.clear();</b>
+&nbsp;
+<b class="pc">&nbsp;        if (gameThread != null &amp;&amp; gameThread != Thread.currentThread()) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                gameThread.join(500);</b>
+&nbsp;            } catch (InterruptedException exception) {
+<b class="nc">&nbsp;                Thread.currentThread().interrupt();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        gameThread = null;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que ejecuta el juego.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void run() {
+<b class="nc">&nbsp;        long lastTime = System.nanoTime();</b>
+<b class="nc">&nbsp;        lastSecondTime = System.currentTimeMillis();</b>
+&nbsp;
+<b class="nc">&nbsp;        while (running) {</b>
+<b class="nc">&nbsp;            long now = System.nanoTime();</b>
+<b class="nc">&nbsp;            if (now - lastTime &gt;= TARGET_TIME) {</b>
+<b class="nc">&nbsp;                update();</b>
+<b class="nc">&nbsp;                notifyObservers();</b>
+<b class="nc">&nbsp;                lastTime = now;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (System.currentTimeMillis() - lastSecondTime &gt;= 1000) {</b>
+<b class="nc">&nbsp;                advanceGameClockOneSecond();</b>
+<b class="nc">&nbsp;                notifyObservers();</b>
+<b class="nc">&nbsp;                lastSecondTime = System.currentTimeMillis();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            try { Thread.sleep(1); } catch (Exception e) {}</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que actualiza el estado del juego.
+&nbsp;     */
+&nbsp;    private void update() {
+<b class="pc">&nbsp;        if (currentState != GameState.PLAYING || currentLevel == null) return;</b>
+&nbsp;
+<b class="fc">&nbsp;        for(Player p: players) p.update();</b>
+<b class="fc">&nbsp;        List&lt;Rectangle&gt; walls = currentLevel.getWalls();</b>
+<b class="pc">&nbsp;        for (Enemy e : currentLevel.getEnemies()) e.update(walls);</b>
+<b class="fc">&nbsp;        checkCollisions();</b>
+<b class="fc">&nbsp;        checkPlayersCollisions();</b>
+<b class="fc">&nbsp;        checkCoinCollection();</b>
+<b class="fc">&nbsp;        checkIntermediateZone();</b>
+<b class="fc">&nbsp;        checkLevelCompletion();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que avanza el reloj del juego un segundo.
+&nbsp;     */
+&nbsp;    void advanceGameClockOneSecond() {
+<b class="pc">&nbsp;        if (currentState != GameState.PLAYING) return;</b>
+<b class="pc">&nbsp;        if (remainingTime &gt; 0) {</b>
+<b class="fc">&nbsp;            remainingTime--;</b>
+&nbsp;        }
+<b class="pc">&nbsp;        if (remainingTime &lt;= 0) {</b>
+<b class="fc">&nbsp;            remainingTime = 0;</b>
+<b class="fc">&nbsp;            currentState = GameState.GAME_OVER;</b>
+<b class="fc">&nbsp;            running = false;</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite mover al jugador a una direccion deseada.
+&nbsp;     * @param p El jugador.
+&nbsp;     * @param direction La direccion donde quiere ir.
+&nbsp;     */
+&nbsp;    public void movePlayer(Player p, String direction) {
+<b class="fc">&nbsp;        double newX = p.getX();</b>
+<b class="fc">&nbsp;        double newY = p.getY();</b>
+<b class="fc">&nbsp;        double speed = p.getCurrentSpeed();</b>
+<b class="fc">&nbsp;        int size = (int)(20 * p.getSizeMultiplier());</b>
+&nbsp;
+<b class="pc">&nbsp;        switch (direction.toUpperCase()) {</b>
+<b class="nc">&nbsp;            case &quot;UP&quot;:    newY -= speed; break;</b>
+<b class="nc">&nbsp;            case &quot;DOWN&quot;:  newY += speed; break;</b>
+<b class="nc">&nbsp;            case &quot;LEFT&quot;:  newX -= speed; break;</b>
+<b class="fc">&nbsp;            case &quot;RIGHT&quot;: newX += speed; break;</b>
+<b class="nc">&nbsp;            case &quot;W&quot;: newY -= speed; break;</b>
+<b class="nc">&nbsp;            case &quot;S&quot;: newY += speed; break;</b>
+<b class="nc">&nbsp;            case &quot;A&quot;: newX -= speed; break;</b>
+<b class="nc">&nbsp;            case &quot;D&quot;: newX += speed; break;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        boolean blocked = collidesWithWall(newX, newY, size);</b>
+<b class="pc">&nbsp;        if (!blocked) {</b>
+<b class="nc">&nbsp;            p.move(direction);</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que comprueba si el jugador esta colisionando con una pared.
+&nbsp;     *
+&nbsp;     * @param x La coordenada x del jugador.
+&nbsp;     * @param y La coordenada y del jugador.
+&nbsp;     * @param size El tamaño del jugador.
+&nbsp;     * @return boolean Verifica si esta haciendo colision o no.
+&nbsp;     */
+&nbsp;    private boolean collidesWithWall(double x, double y, int size) {
+<b class="pc">&nbsp;        if(currentLevel == null) return false;</b>
+<b class="fc">&nbsp;        Rectangle2D.Double playerRect = new Rectangle2D.Double(x, y, size, size);</b>
+<b class="pc">&nbsp;        for(Rectangle wall : currentLevel.getWalls()) {</b>
+<b class="pc">&nbsp;            if (playerRect.intersects(wall)) return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que comprueba si el jugador esta colisionando con un enemigo.
+&nbsp;     */
+&nbsp;    private void checkCollisions() {
+<b class="fc">&nbsp;        for (Player p : players) {</b>
+<b class="fc">&nbsp;            Rectangle2D.Double pRect = new Rectangle2D.Double(p.getX(), p.getY(), 20 * p.getSizeMultiplier(), 20 * p.getSizeMultiplier());</b>
+<b class="pc">&nbsp;            for (Enemy e : currentLevel.getEnemies()) {</b>
+<b class="nc">&nbsp;                if (pRect.intersects(e.getX() - 7.5, e.getY(), 15, 15)) {</b>
+<b class="nc">&nbsp;                    p.handleHit();</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    private void checkPlayersCollisions() {
+<b class="fc">&nbsp;        for(int i = 0; i &lt; players.size(); i++) {</b>
+<b class="fc">&nbsp;            for(int j = i + 1; j &lt; players.size(); j++) {</b>
+<b class="fc">&nbsp;                Player firstPlayer = players.get(i);</b>
+<b class="fc">&nbsp;                Player secondPlayer = players.get(j);</b>
+<b class="fc">&nbsp;                Rectangle2D.Double firstRectangle = new Rectangle2D.Double(firstPlayer.getX(), firstPlayer.getY(),</b>
+<b class="fc">&nbsp;                        20 * firstPlayer.getSizeMultiplier(), 20 * firstPlayer.getSizeMultiplier());</b>
+<b class="fc">&nbsp;                Rectangle2D.Double secondRectangle = new Rectangle2D.Double(secondPlayer.getX(), secondPlayer.getY(),</b>
+<b class="fc">&nbsp;                        20 * secondPlayer.getSizeMultiplier(), 20 * secondPlayer.getSizeMultiplier());</b>
+<b class="pc">&nbsp;                if(firstRectangle.intersects(secondRectangle)) {</b>
+<b class="nc">&nbsp;                    firstPlayer.handleHit();</b>
+<b class="nc">&nbsp;                    secondPlayer.handleHit();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que verifica si el jugador obtuvo una moneda.
+&nbsp;     */
+&nbsp;    private void checkCoinCollection() {
+<b class="fc">&nbsp;        if(gameMode.independentGameModeCoins()) {</b>
+<b class="fc">&nbsp;            checkCoinCollectionPvPGameMode();</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            checkCoinCollectionSinglePlayerGameMode();</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que verifica si el jugador obtuvo una moneda
+&nbsp;     * en el modo solitario.
+&nbsp;     */
+&nbsp;    private void checkCoinCollectionSinglePlayerGameMode() {
+<b class="fc">&nbsp;        List&lt;Coin&gt; bagOfCoins = currentLevel.getCoins();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Player p : players) {</b>
+<b class="fc">&nbsp;            Rectangle2D.Double pRect = new Rectangle2D.Double(p.getX(), p.getY(),</b>
+<b class="fc">&nbsp;                    20 * p.getSizeMultiplier(), 20 * p.getSizeMultiplier());</b>
+<b class="fc">&nbsp;            for (int i = 0; i &lt; bagOfCoins.size(); i++) {</b>
+<b class="fc">&nbsp;                Coin coin = bagOfCoins.get(i);</b>
+<b class="pc">&nbsp;                if (!coin.isCollected() &amp;&amp; pRect.intersects(coin.getX(), coin.getY(), 10, 10)) {</b>
+<b class="fc">&nbsp;                    p.collectCoin(i);</b>
+<b class="fc">&nbsp;                    coin.collect();</b>
+<b class="fc">&nbsp;                    handleCoinEffect(p, coin);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que verifica si algún jugador obtuvo una moneda
+&nbsp;     * en el modo pvp.
+&nbsp;     */
+&nbsp;    private void checkCoinCollectionPvPGameMode() {
+<b class="fc">&nbsp;        List&lt;Coin&gt; bagOfCoins = currentLevel.getCoins();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Player p : players) {</b>
+<b class="fc">&nbsp;            Rectangle2D.Double pRect = new Rectangle2D.Double(p.getX(), p.getY(),</b>
+<b class="fc">&nbsp;                    20 * p.getSizeMultiplier(), 20 * p.getSizeMultiplier());</b>
+<b class="fc">&nbsp;            for (int i = 0; i &lt; bagOfCoins.size(); i++) {</b>
+<b class="fc">&nbsp;                Coin coin = bagOfCoins.get(i);</b>
+<b class="fc">&nbsp;                if (!p.hasCollectedCoin(i) &amp;&amp; pRect.intersects(coin.getX(), coin.getY(), 10, 10)) {</b>
+<b class="fc">&nbsp;                    p.collectCoin(i);</b>
+<b class="fc">&nbsp;                    handleCoinEffect(p, coin);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que aplica el efecto de la moneda al jugador.
+&nbsp;     * @param p El jugador que recibe el efecto.
+&nbsp;     * @param c La moneda que contiene el efecto.
+&nbsp;     */
+&nbsp;    private void handleCoinEffect(Player p, Coin c) {
+<b class="fc">&nbsp;        String type = c.getType().toUpperCase();</b>
+<b class="pc">&nbsp;        if (type.equals(&quot;RED&quot;)) p.applySkin(&quot;ROJO&quot;, 1.25, 1.0);</b>
+<b class="fc">&nbsp;        else if (type.equals(&quot;BLUE&quot;)) p.applySkin(&quot;AZUL&quot;, 1.75, 1.5);</b>
+<b class="fc">&nbsp;        else if (type.equals(&quot;GREEN&quot;)) p.applySkin(&quot;VERDE&quot;, 1.25, 1.0);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    private void checkLevelCompletion() {
+<b class="fc">&nbsp;        gameMode.checkLevelCompletion(players, currentLevel);</b>
+&nbsp;
+<b class="fc">&nbsp;        if(gameMode.checkWinCondition(players, getCollectedCoinsCount(), getTotalCoinsCount())) {</b>
+<b class="fc">&nbsp;            currentState = GameState.VICTORY;</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método privado que verifica que el jugador reaparezca
+&nbsp;     * en la zona intermedia.
+&nbsp;     */
+&nbsp;    private void checkIntermediateZone() {
+<b class="fc">&nbsp;        Point intermediateZone = currentLevel.getIntermediateSafeZone();</b>
+<b class="fc">&nbsp;        if(intermediateZone == null) return;</b>
+<b class="fc">&nbsp;        for(Player player: players) {</b>
+<b class="fc">&nbsp;            Rectangle2D.Double pRect = new Rectangle2D.Double(player.getX(), player.getY(),</b>
+<b class="fc">&nbsp;                    20 * player.getSizeMultiplier(), 20 * player.getSizeMultiplier());</b>
+<b class="pc">&nbsp;            if(pRect.intersects(intermediateZone.x, intermediateZone.y, 60, 60)) {</b>
+<b class="fc">&nbsp;                player.setRespawnPoint(intermediateZone.x, intermediateZone.y);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene el ganador del juego.
+&nbsp;     *
+&nbsp;     * @return Player El ganador del juego.
+&nbsp;     */
+&nbsp;    public Player getWinner() {
+<b class="nc">&nbsp;        return gameMode.getWinner(players);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    // Método pendiente por revisar
+&nbsp;    /**
+&nbsp;     * Método privado que notifica a los observadores del estado del juego.
+&nbsp;     */
+&nbsp;    private void notifyObservers() {
+<b class="nc">&nbsp;        for (GameObserver o : new ArrayList&lt;&gt;(observers)) o.update();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que carga un nivel en el juego.
+&nbsp;     *
+&nbsp;     * @param level El nivel a cargar.
+&nbsp;     */
+&nbsp;    public void loadLevel(Level level) {
+<b class="fc">&nbsp;        this.currentLevel = level;</b>
+<b class="fc">&nbsp;        this.currentState = GameState.PLAYING;</b>
+<b class="fc">&nbsp;        this.remainingTime = level.getTimeLimit();</b>
+<b class="fc">&nbsp;        gameMode.setUp(players);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; players.size(); i++) {</b>
+<b class="fc">&nbsp;            Player p = players.get(i);</b>
+<b class="pc">&nbsp;            Point spawnPoint = (i == 1 &amp;&amp; level.getFinalSafeZone() != null)</b>
+<b class="fc">&nbsp;                    ? level.getFinalSafeZone() : level.getStartPoint();</b>
+<b class="pc">&nbsp;            if(spawnPoint != null) {</b>
+<b class="fc">&nbsp;                p.setRespawnPoint(spawnPoint.getX(), spawnPoint.getY());</b>
+<b class="fc">&nbsp;                p.resetPosition(spawnPoint.getX(), spawnPoint.getY());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    public GameMemento createMemento() {
+<b class="nc">&nbsp;        Player player = players.isEmpty() ? null : players.get(0);</b>
+<b class="nc">&nbsp;        Player secondPlayer = players.size() &gt; 1 ? players.get(1) : null;</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;GameMemento.PlayerSnapshot&gt; playerSnapshots = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Player currentPlayer : players) {</b>
+<b class="nc">&nbsp;            playerSnapshots.add(new GameMemento.PlayerSnapshot(</b>
+<b class="nc">&nbsp;                    currentPlayer.getColor(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getBorderColor(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getX(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getY(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getCurrentSpeed(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getSizeMultiplier(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getRespawnX(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getRespawnY(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getDeaths(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getCollectedCoinIndexes(),</b>
+<b class="nc">&nbsp;                    currentPlayer.hasShield(),</b>
+<b class="nc">&nbsp;                    currentPlayer.isInvincible(),</b>
+<b class="nc">&nbsp;                    currentPlayer.getInvincibilityTimer()));</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        return new GameMemento(</b>
+<b class="nc">&nbsp;                getCurrentModeName(),</b>
+<b class="nc">&nbsp;                player != null ? player.getColor() : &quot;RED&quot;,</b>
+<b class="nc">&nbsp;                player != null ? player.getBorderColor() : Color.BLACK,</b>
+<b class="nc">&nbsp;                secondPlayer != null ? secondPlayer.getColor() : &quot;RED&quot;,</b>
+<b class="nc">&nbsp;                secondPlayer != null ? secondPlayer.getBorderColor() : Color.BLACK,</b>
+&nbsp;                currentLevelFile,
+&nbsp;                remainingTime,
+&nbsp;                playerSnapshots);
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    public void restoreMemento(GameMemento memento) {
+<b class="nc">&nbsp;        setGameMode(memento.getMode());</b>
+<b class="nc">&nbsp;        this.currentLevelFile = memento.getLevelFile();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (memento.getRemainingTime() &gt;= 0) {</b>
+<b class="nc">&nbsp;            this.remainingTime = memento.getRemainingTime();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        List&lt;GameMemento.PlayerSnapshot&gt; snapshots = memento.getPlayerSnapshots();</b>
+&nbsp;
+<b class="nc">&nbsp;        if(!snapshots.isEmpty()) {</b>
+<b class="nc">&nbsp;            int amountPlayers = Math.min(players.size(), snapshots.size());</b>
+&nbsp;
+<b class="nc">&nbsp;            for (int i = 0; i &lt; amountPlayers; i++) {</b>
+<b class="nc">&nbsp;                Player player = players.get(i);</b>
+<b class="nc">&nbsp;                GameMemento.PlayerSnapshot snapshot = snapshots.get(i);</b>
+&nbsp;
+<b class="nc">&nbsp;                player.restoreSavedState(</b>
+<b class="nc">&nbsp;                        snapshot.getSkin(),</b>
+<b class="nc">&nbsp;                        snapshot.getBorderColor(),</b>
+<b class="nc">&nbsp;                        snapshot.getX(),</b>
+<b class="nc">&nbsp;                        snapshot.getY(),</b>
+<b class="nc">&nbsp;                        snapshot.getCurrentSpeed(),</b>
+<b class="nc">&nbsp;                        snapshot.getSizeMultiplier(),</b>
+<b class="nc">&nbsp;                        snapshot.getRespawnX(),</b>
+<b class="nc">&nbsp;                        snapshot.getRespawnY(),</b>
+<b class="nc">&nbsp;                        snapshot.getDeaths(),</b>
+<b class="nc">&nbsp;                        snapshot.getCollectedCoins(),</b>
+<b class="nc">&nbsp;                        snapshot.hasShield(),</b>
+<b class="nc">&nbsp;                        snapshot.isInvincible(),</b>
+<b class="nc">&nbsp;                        snapshot.getInvincibilityTimer());</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            restoreCollectedCoinsOnLevel();</b>
+<b class="nc">&nbsp;            gameMode.setUp(players);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(!players.isEmpty()) {</b>
+<b class="nc">&nbsp;            Player player = players.get(0);</b>
+&nbsp;
+<b class="nc">&nbsp;            player.applySkin(</b>
+<b class="nc">&nbsp;                    memento.getSkin(),</b>
+<b class="nc">&nbsp;                    player.getCurrentSpeed(),</b>
+<b class="nc">&nbsp;                    player.getSizeMultiplier());</b>
+&nbsp;
+<b class="nc">&nbsp;            player.setBorderColor(memento.getBorderColor());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(players.size() &gt; 1) {</b>
+<b class="nc">&nbsp;            Player secondPlayer = players.get(1);</b>
+&nbsp;
+<b class="nc">&nbsp;            secondPlayer.applySkin(</b>
+<b class="nc">&nbsp;                    memento.getSecondSkin(),</b>
+<b class="nc">&nbsp;                    secondPlayer.getCurrentSpeed(),</b>
+<b class="nc">&nbsp;                    secondPlayer.getSizeMultiplier());</b>
+&nbsp;
+<b class="nc">&nbsp;            secondPlayer.setBorderColor(memento.getSecondBorderColor());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        gameMode.setUp(players);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void restoreCollectedCoinsOnLevel() {
+<b class="nc">&nbsp;        if(currentLevel == null || players.isEmpty()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(gameMode.independentGameModeCoins()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Player player = players.get(0);</b>
+&nbsp;
+<b class="nc">&nbsp;        for(Integer coinIndex : player.getCollectedCoinIndexes()) {</b>
+<b class="nc">&nbsp;            if(coinIndex &gt;= 0 &amp;&amp; coinIndex &lt; currentLevel.getCoins().size()) {</b>
+<b class="nc">&nbsp;                currentLevel.getCoins().get(coinIndex).collect();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getCurrentModeName() {
+<b class="nc">&nbsp;        return gameMode.getClass().getSimpleName().equals(&quot;PlayerVsPlayer&quot;)</b>
+<b class="nc">&nbsp;                ? &quot;Player vs Player&quot;</b>
+<b class="nc">&nbsp;                : &quot;Player&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentLevelFile(File currentLevel) {
+<b class="nc">&nbsp;        this.currentLevelFile = currentLevel;</b>
+&nbsp;    } // Cierre del método
+&nbsp;    /**
+&nbsp;     * Método que devuelve la lista de jugadores.
+&nbsp;     *
+&nbsp;     * @return List&lt;Player&gt; La lista de jugadores.
+&nbsp;     */
+&nbsp;    public List&lt;Player&gt; getPlayers() {
+<b class="fc">&nbsp;        return players;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que devuelve el nivel actual del juego.
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    public Level getCurrentLevel() {
+<b class="fc">&nbsp;        return currentLevel;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que devuelve el tiempo restante del nivel.
+&nbsp;     *
+&nbsp;     * @return int El tiempo restante del nivel.
+&nbsp;     */
+&nbsp;    public int getRemainingTime() {
+<b class="fc">&nbsp;        return remainingTime;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    public int getCollectedCoinsCount() {
+<b class="pc">&nbsp;        if (currentLevel == null) return 0;</b>
+<b class="fc">&nbsp;        int collectedCoins = 0;</b>
+<b class="fc">&nbsp;        for (Coin c : currentLevel.getCoins()) {</b>
+<b class="fc">&nbsp;            if (c.isCollected()) collectedCoins++;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return collectedCoins;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    public int getTotalCoinsCount() {
+<b class="pc">&nbsp;        if (currentLevel == null) return 0;</b>
+<b class="fc">&nbsp;        return currentLevel.getCoins().size();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que devuelve el estado actual del juego.
+&nbsp;     *
+&nbsp;     * @return GameState El estado del juego.
+&nbsp;     */
+&nbsp;    public GameState getCurrentState() {
+<b class="fc">&nbsp;        return currentState;</b>
+&nbsp;    } // Cierre del método
+&nbsp;} // Cierre de la clase
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-16 21:04</div>
+</div>
+</body>
+</html>

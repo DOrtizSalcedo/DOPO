@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Shadow
+comment0.text=\r\n\ Clase\ que\ contiene\ la\ l\u00F3gica\ de\ la\ sombra\ en\ el\ bosque\ (\u00FAnicamente\ teniendo\ en\ cuenta\ a\ la\ Ardilla).\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 04/05/2026\r\n
+comment1.params=bosque\ sombraCosa
+comment1.target=Shadow(Forest,\ Thing)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Shadow.\r\n\ \r\n\ @param\ bosque\ El\ bosque\ donde\ estar\u00E1\ la\ sombra.\r\n\ @param\ sombra\ La\ sombra\ que\ tiene\ una\ cosa.\r\n
+comment2.params=
+comment2.target=int\ shape()
+comment2.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ forma\ de\ la\ sombra.\r\n\ \r\n\ @return\ int\ Retorna\ el\ tama\u00F1o\ de\ la\ figura.\r\n
+comment3.params=
+comment3.target=java.awt.Color\ getColor()
+comment3.text=\r\n\ M\u00E9todo\ que\ retorna\ el\ color\ de\ la\ sombra.\r\n\ \r\n\ @return\ Color\ Retorna\ el\ color\ de\ la\ sombra\ (color\ negro\ de\ acuerdo\ a\ lo\ dado\ en\ el\ laboratorio).\r\n
+comment4.params=
+comment4.target=void\ ticTac()
+comment4.text=\r\n\ M\u00E9todo\ que\ sobre-escribe\ y\ contiene\ la\ l\u00F3gica\ de\ los\ pasos\ de\ la\ sombra\ (s\u00F3lamente\ de\ la\ Ardilla).\r\n\ \r\n
+comment5.params=
+comment5.target=int\ getRow()
+comment5.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ fila\ de\ la\ sombra.\r\n\ \r\n\ @return\ int\ Retorna\ la\ posici\u00F3n\ en\ fila\ de\ la\ sombra.\r\n
+comment6.params=
+comment6.target=int\ getColumn()
+comment6.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ columna\ de\ la\ sombra.\r\n\ \r\n\ @return\ int\ Retorna\ la\ posici\u00F3n\ en\ columna\ de\ la\ sombra.\r\n
+numComments=7

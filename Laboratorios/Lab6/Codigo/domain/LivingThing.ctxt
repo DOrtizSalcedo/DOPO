@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=LivingThing
+comment0.text=\r\n\ Clase\ que\ contiene\ la\ l\u00F3gica\ de\ una\ cosa\ viviente\ dentro\ del\ bosque.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 04/05/2026\r\n
+comment1.params=
+comment1.target=LivingThing()
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ LivingThing.\r\n\ \r\n
+comment2.params=amount
+comment2.target=void\ setEnergy(int)
+comment2.text=\ \r\n\ M\u00E9todo\ que\ pone\ cierta\ cantidad\ de\ energ\u00EDa\ a\ la\ cosa.\r\n
+comment3.params=
+comment3.target=boolean\ step()
+comment3.text=\r\n\ M\u00E9todo\ que\ contiene\ la\ l\u00F3gica\ de\ los\ pasos\ de\ una\ cosa\ viviente.\r\n\ \r\n\ @return\ boolean\ Verifica\ que\ cada\ vez\ se\ oprima\ el\ bot\u00F3n\ "Tic-tac",\ la\ energ\u00EDa\ disminuya\ hasta\ morir,\ retornando\ false.\r\n
+comment4.params=
+comment4.target=int\ getEnergy()
+comment4.text=\r\n\ M\u00E9todo\ que\ obtiene\ la\ energ\u00EDa\ de\ una\ cosa\ viviente.\r\n\ \r\n\ @return\ int\ La\ cantidad\ de\ energ\u00EDa\ de\ la\ cosa\ viviente.\r\n
+comment5.params=
+comment5.target=boolean\ isLivingThing()
+comment5.text=\r\n\ M\u00E9todo\ que\ verifica\ si\ la\ cosa\ es\ una\ cosa\ viviente\ o\ no.\r\n\ \r\n\ @return\ boolean\ Retorna\ verdadero\ o\ falso\ si\ es\ una\ cosa\ viviente\ o\ no.\r\n
+numComments=6

@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TheDopoHardestGameLogger</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">domain.core</a>
+</div>
+
+<h1>Coverage Summary for Class: TheDopoHardestGameLogger (domain.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TheDopoHardestGameLogger</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package domain.core;
+&nbsp;
+&nbsp;import domain.exceptions.TheDopoHardestGameException;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.logging.*;
+&nbsp;import java.io.File;
+&nbsp;
+&nbsp;/**
+&nbsp; * Clase que registra las excepciones generadas en un log.
+&nbsp; *
+&nbsp; * @author Juan Pablo Cuervo Contreras
+&nbsp; * @author David Felipe Ortiz Salcedo
+&nbsp; * @version 16/05/2026
+&nbsp; */
+&nbsp;public class TheDopoHardestGameLogger {
+&nbsp;    private static TheDopoHardestGameLogger instance;
+&nbsp;    private final Logger logger;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * El constructor de la clase TheDopoHardestGameLogger.
+&nbsp;     *
+&nbsp;     */
+<b class="nc">&nbsp;    private TheDopoHardestGameLogger() {</b>
+<b class="nc">&nbsp;        File logs = new File(&quot;logs&quot;);</b>
+<b class="nc">&nbsp;        if(!logs.exists()) {</b>
+<b class="nc">&nbsp;            logs.mkdirs();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        logger = Logger.getLogger(TheDopoHardestGameLogger.class.getName());</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            FileHandler handler = new FileHandler(&quot;logs/game.log&quot;, true);</b>
+<b class="nc">&nbsp;            handler.setFormatter(new SimpleFormatter());</b>
+<b class="nc">&nbsp;            logger.addHandler(handler);</b>
+&nbsp;        } catch(IOException exception) {
+<b class="nc">&nbsp;            logger.warning(&quot;Archivo de registro no creado&quot;);</b>
+&nbsp;        }
+&nbsp;    } // Cierre del constructor
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene la instancia de la clase logger.
+&nbsp;     *
+&nbsp;     * @return TheDopoHardestGameLogger La instancia de la clase logger.
+&nbsp;     */
+&nbsp;    public static TheDopoHardestGameLogger getInstance() {
+<b class="nc">&nbsp;        if (instance == null) {</b>
+<b class="nc">&nbsp;            instance = new TheDopoHardestGameLogger();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return instance;</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene la excepción y la registra en el log.
+&nbsp;     *
+&nbsp;     * @param exception La excepción obtenida y a registrar.
+&nbsp;     */
+&nbsp;    public void logException(TheDopoHardestGameException exception) {
+<b class="nc">&nbsp;        logger.log(Level.SEVERE, exception.getMessage(), exception);</b>
+&nbsp;    } // Cierre del método
+&nbsp;} // Cierre de la clase
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-16 21:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Fire
+comment0.text=\r\n\ Clase\ que\ representa\ el\ Fuego\ en\ el\ bosque.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 21/03/2026\r\n
+comment1.params=forest\ row\ column
+comment1.target=Fire(Forest,\ int,\ int)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Fire.\r\n\ \r\n\ @param\ forest\ El\ bosque\ en\ donde\ se\ encuentra\ el\ fuego.\r\n\ @param\ row\ La\ posici\u00F3n\ de\ fila\ donde\ est\u00E1\ el\ fuego.\r\n\ @param\ column\ La\ posici\u00F3n\ de\ columna\ donde\ est\u00E1\ el\ fuego.\r\n
+comment2.params=
+comment2.target=int\ shape()
+comment2.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ forma\ del\ fuego.\r\n\ \r\n\ @return\ int\ El\ tama\u00F1o\ de\ la\ forma\ que\ representa\ al\ fuego.\r\n
+comment3.params=
+comment3.target=java.awt.Color\ getColor()
+comment3.text=\r\n\ M\u00E9todo\ que\ retorna\ el\ color\ que\ representa\ al\ fuego.\r\n\ \r\n\ @return\ Color\ El\ color\ del\ fuego.\r\n
+comment4.params=
+comment4.target=void\ ticTac()
+comment4.text=\r\n\ M\u00E9todo\ que\ contiene\ la\ l\u00F3gica\ de\ los\ pasos\ del\ fuego.\r\n\ \r\n
+comment5.params=
+comment5.target=boolean\ isNearWater()
+comment5.text=\r\n\ M\u00E9todo\ que\ verifica\ si\ el\ fuego\ est\u00E1\ cerca\ del\ agua.\r\n\ \r\n\ @return\ boolean\ Retorna\ verdadero\ o\ falso\ para\ ver\ si\ est\u00E1\ cerca\ del\ agua.\r\n
+comment6.params=
+comment6.target=boolean\ isSurroundedByGround()
+comment6.text=\r\n\ M\u00E9todo\ que\ verifica\ si\ el\ fuego\ est\u00E1\ rodeado\ de\ tierra.\r\n\ \r\n\ @return\ Retorna\ verdadero\ o\ falso\ donde\ se\ v\u00E9\ si\ alrededor\ de\ este\ tiene\ tierra.\r\n
+numComments=7

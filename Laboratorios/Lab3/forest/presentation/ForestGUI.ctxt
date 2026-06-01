@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=ForestGUI
+comment0.text=\r\n\ Clase\ que\ contiene\ la\ UI\ del\ simulador\ Forest\ Fire\ Model.\r\n\ \ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\ \r\n\ @version\ 18/03/2026\r\n
+comment1.params=
+comment1.target=ForestGUI()
+comment1.text=\r\n\ M\u00E9todo\ privado\ que\ permite\ construir\ la\ UI\ del\ simulador.\r\n
+comment2.params=
+comment2.target=void\ prepareElements()
+comment2.text=\r\n\ M\u00E9todo\ que\ prepara\ el\ bot\u00F3n\ y\ matriz\ del\ simulador.\r\n
+comment3.params=
+comment3.target=void\ prepareActions()
+comment3.text=\r\n\ M\u00E9todo\ que\ contiene\ la\ acci\u00F3n\ que\ se\ puede\ realizar\ con\ el\ bot\u00F3n\ "Tic-tac".\r\n
+comment4.params=e
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=
+comment5.target=void\ ticTacButtonAction()
+comment5.text=\r\n\ M\u00E9todo\ que\ contiene\ la\ l\u00F3gica\ del\ bot\u00F3n.\r\n
+comment6.params=
+comment6.target=Forest\ gettheForest()
+comment6.text=\r\n\ M\u00E9todo\ que\ obtiene\ un\ bosque.\r\n\ \r\n\ @return\ Forest\ El\ bosque\ que\ el\ usuario\ instanci\u00F3.\r\n
+comment7.params=args
+comment7.target=void\ main(java.lang.String[])
+comment7.text=\r\n\ M\u00E9todo\ principal.\r\n
+numComments=8

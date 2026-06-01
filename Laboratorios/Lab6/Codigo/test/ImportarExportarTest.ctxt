@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=ImportarExportarTest
+comment0.text=\r\n\ Realiza\ casos\ de\ prueba\ para\ comprobar\ que\ se\ puedan\ importar\ de\ archivos\r\n\ al\ simulador\ y\ se\ pueda\ exportar\ archivos\ desde\ el\ simulador\ correctamente.\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 05/05/2026\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ M\u00E9todo\ llamado\ antes\ de\ cada\ caso\ de\ prueba.\r\n
+comment2.params=
+comment2.target=void\ shouldImportAValidFile()
+comment2.text=\r\n\ Caso\ de\ prueba\ que\ verifica\ que\ un\ archivo\ pueda\ ser\ importado\ correctamente.\r\n
+comment3.params=
+comment3.target=void\ shouldNotImportIncompatibleFile()
+comment3.text=\r\n\ Caso\ de\ prueba\ que\ mira\ que\ no\ se\ pueda\ importar\ un\ archivo\ que\ no\r\n\ sea\ compatible.\r\n
+comment4.params=
+comment4.target=void\ shouldHaveAllObjects()
+comment4.text=\r\n\ Caso\ de\ prueba\ que\ verifica\ que\ el\ archivo\ de\ texto\ pueda\ ser\ legible.\r\n\ Es\ decir,\ se\ muestren\ los\ datos\ independientemente\ \r\n\ de\ qu\u00E9\ aplicaci\u00F3n\ se\ use.\r\n
+comment5.params=
+comment5.target=void\ shouldExportIfFileIsEmpty()
+comment5.text=\r\n\ Caso\ de\ prueba\ que\ mira\ si\ el\ archivo\ est\u00E1\ vac\u00EDo.\r\n
+comment6.params=
+comment6.target=void\ tearDown()
+comment6.text=\r\n\ M\u00E9todo\ llamado\ despu\u00E9s\ de\ cada\ caso\ de\ prueba.\r\n
+numComments=7

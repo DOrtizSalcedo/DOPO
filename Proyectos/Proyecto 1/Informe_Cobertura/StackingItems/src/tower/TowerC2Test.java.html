@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TowerC2Test.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">TowerC2Test.java</span></div><h1>TowerC2Test.java</h1><pre class="source lang-java linenums">package tower;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Realiza casos de prueba para comprobar que el proyecto funciona.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 15/03/2026
+ */
+<span class="fc" id="L15">public class TowerC2Test {</span>
+    /**
+     *
+     * Método llamado antes de cada caso de prueba.
+     */
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L22">    }</span>
+    // Tower (Constructor)
+    /**
+     * Verifica que la altura de la torre sea de 0cm.
+     * Verifica que al instanciar un objeto, la altura de la torre sea de 0cm.
+     */
+    @Test
+    public void shouldStartWithHeightZero() {
+<span class="fc" id="L30">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L31">        assertEquals(0, newTower.height());</span>
+<span class="fc" id="L32">    } // Cierre del caso de prueba</span>
+    
+    /**
+     * La altura de la torre debe incrementar de forma correcta.
+     */
+    @Test
+    public void shouldHeightIncreaseCorrectly() {
+<span class="fc" id="L39">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L40">        newTower.pushCup(&quot;cup&quot;, 1);</span>
+<span class="fc" id="L41">        assertEquals(1, newTower.height());</span>
+<span class="fc" id="L42">    } // Cierre del caso de prueba</span>
+    
+    //pushCup
+    /**
+     * Verifica que no se pueda agregar una taza duplicada a la torre.
+     */
+    @Test
+    public void shouldNotAddAnExistentCup() {
+<span class="fc" id="L50">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L51">        newTower.pushCup(&quot;cup&quot;, 23);</span>
+<span class="fc" id="L52">        newTower.pushCup(&quot;cup&quot;, 23);</span>
+<span class="fc" id="L53">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L54">    } // Cierre del caso de prueba</span>
+    
+    //popCup
+    /**
+     * Verifica que no se pueda eliminar tazas si la torre no tiene.
+     */
+    @Test
+    public void shouldNotDeleteIfCupsDoesntExists() {
+<span class="fc" id="L62">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L63">        newTower.popCup();</span>
+<span class="fc" id="L64">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L65">    } // Cierre del caso de prueba</span>
+    
+    //removeCup
+    /**
+     * Verifica que la taza a la que se desee eliminar, la altura de la torre se reduzca.
+     */
+    @Test
+    public void shouldDecreaseHeight() {
+<span class="fc" id="L73">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L74">        int initialHeight = newTower.height();</span>
+<span class="fc" id="L75">        newTower.pushCup(&quot;cup&quot;, 23);</span>
+<span class="fc" id="L76">        newTower.removeCup(1);</span>
+<span class="fc" id="L77">        int finalHeight = newTower.height();</span>
+<span class="fc" id="L78">        assertEquals(initialHeight, finalHeight);</span>
+<span class="fc" id="L79">    } // Cierre del caso de prueba</span>
+
+    // pushLid
+    /**
+     * Verifica que el tamaño de la tapa no sea mayor a 1cm.
+     * Verifica que la altura de la torre aumente al agregarle una tapa.
+     */
+    @Test 
+    public void shouldIncreaseHeight() {
+<span class="fc" id="L88">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L89">        int initialHeight = newTower.height();</span>
+<span class="fc" id="L90">        newTower.pushLid(&quot;lid&quot;, 1);</span>
+<span class="fc" id="L91">        int finalHeight = newTower.height();</span>
+<span class="fc" id="L92">        assertEquals(1, finalHeight - initialHeight);</span>
+<span class="fc" id="L93">        assertEquals(1, newTower.height());</span>
+<span class="fc" id="L94">    } // Cierre del caso de prueba</span>
+    
+    //popLid
+    /**
+     * Verifica que no se pueda eliminar tapas si la torre no tiene.
+     */
+    @Test
+    public void shouldNotDeleteLidIfDoesntExists() {
+<span class="fc" id="L102">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L103">        newTower.popLid();</span>
+<span class="fc" id="L104">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L105">    } // Cierre del caso de prueba</span>
+    
+    //removeLid
+    /**
+     * Verifica que no se pueda eliminar una tapa que ya ha sido eliminada anteriormente.
+     */
+    @Test
+    public void shouldNotDeleteTheSameLid() {
+<span class="fc" id="L113">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L114">        newTower.pushLid(&quot;lid&quot;, 3);</span>
+<span class="fc" id="L115">        newTower.pushLid(&quot;lid&quot;, 5);</span>
+<span class="fc" id="L116">        newTower.removeLid(2);</span>
+<span class="fc" id="L117">        newTower.removeLid(2);</span>
+<span class="fc" id="L118">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L119">    } // Cierre del caso de prueba</span>
+    
+    //orderTower
+    /**
+     * Verifica que al tener tapa y taza con mismo tamaño, ordena la torre (la taza debe ir primero). 
+     */
+    @Test
+    public void shouldOrderIfLidAndCupHaveTheSameSize() {
+<span class="fc" id="L127">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L128">        newTower.pushCup(&quot;cup&quot;, 3);</span>
+<span class="fc" id="L129">        newTower.pushLid(&quot;lid&quot;, 3);</span>
+<span class="fc" id="L130">        newTower.orderTower();</span>
+<span class="fc" id="L131">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L132">    } // Cierre del caso de prueba</span>
+    
+    //reverseTower
+    /**
+     * Verifica que al realizar la reversa dos veces, las tazas y tapas estén en su posición original.
+     */
+    @Test
+    public void shouldStayInTheirOriginalPosition() {
+<span class="fc" id="L140">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L141">        newTower.pushCup(&quot;cup&quot;, 3);</span>
+<span class="fc" id="L142">        newTower.pushLid(&quot;lid&quot;, 3);</span>
+<span class="fc" id="L143">        newTower.pushCup(&quot;cup&quot;, 14);</span>
+<span class="fc" id="L144">        newTower.pushLid(&quot;lid&quot;, 14);</span>
+<span class="fc" id="L145">        newTower.reverseTower();</span>
+<span class="fc" id="L146">        newTower.reverseTower();</span>
+<span class="fc" id="L147">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L148">    } // Cierre del caso de prueba</span>
+
+    // swap
+    /**
+     * Verifica que no se pueda intercambiar entre un item existente y uno que no existe.
+     */
+    @Test
+    public void shouldNotSwapBetweenIfItemsDoesntExists() {
+<span class="fc" id="L156">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L157">        newTower.pushCup(&quot;cup&quot;, 3);</span>
+<span class="fc" id="L158">        String[] o1 = {&quot;cup&quot;, &quot;3&quot;};</span>
+<span class="fc" id="L159">        String[] o2 = {&quot;lid&quot;, &quot;5&quot;};</span>
+<span class="fc" id="L160">        newTower.swap(o1, o2);</span>
+<span class="fc" id="L161">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L162">    } // Cierre del caso de prueba</span>
+    
+    // cover
+    /**
+     * Verifica que no se tapen dos o más tapas.
+     * Verifica que se pueda cubrir una taza con una tapa.
+     */
+    @Test
+    public void shouldCoverCupWithLid() {
+<span class="fc" id="L171">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L172">        newTower.pushCup(&quot;cup&quot;, 10);</span>
+<span class="fc" id="L173">        newTower.pushLid(&quot;lid&quot;, 10);</span>
+<span class="fc" id="L174">        newTower.pushLid(&quot;lid&quot;, 10);</span>
+<span class="fc" id="L175">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L176">        newTower.cover();</span>
+<span class="fc" id="L177">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L178">    } // Cierre del caso de prueba</span>
+    
+    //lidedCups
+    /**
+     * Verifica que se retorne una lista vacía de una taza al no existir.
+     */
+    @Test
+    public void shouldReturnEmptyListIfCupDoesntExists() {
+<span class="fc" id="L186">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L187">        int[] noItem = newTower.lidedCups();</span>
+<span class="fc" id="L188">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L189">    } // Cierre del caso de prueba</span>
+    
+    //stackingItems
+    /**
+     * Verifica que no se retorne la matriz si los items no existen.
+     */
+    @Test
+    public void shouldReturnNothingIfItemsDoesntExists() {
+<span class="fc" id="L197">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L198">        newTower.pushCup(&quot;cup&quot;, 25);</span>
+<span class="fc" id="L199">        newTower.pushLid(&quot;lid&quot;, 4);</span>
+<span class="fc" id="L200">        String[][] sinItem = newTower.stackingItems();</span>
+<span class="fc" id="L201">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L202">    } // Cierre del caso de prueba</span>
+
+    //swapToReduce
+    /**
+     * Verifica si la altura se redujo o no al intercambiar dos objetos.
+     * Verifica que la altura se reduzca al intercambiar dos objetos.
+     */
+    @Test
+    public void shouldReduceHeight() {
+<span class="fc" id="L211">        Tower newTower = new Tower(10, 40);</span>
+<span class="fc" id="L212">        newTower.pushCup(&quot;cup&quot;, 10);</span>
+<span class="fc" id="L213">        newTower.pushLid(&quot;lid&quot;, 20);</span>
+<span class="fc" id="L214">        newTower.pushCup(&quot;cup&quot;, 50);</span>
+<span class="fc" id="L215">        newTower.pushLid(&quot;lid&quot;, 30);</span>
+<span class="fc" id="L216">        assertNull(newTower.swapToReduce());</span>
+        
+<span class="fc" id="L218">        String[][] move = newTower.swapToReduce();</span>
+<span class="pc bpc" id="L219" title="3 of 4 branches missed.">        assertTrue(move == null || move.length == 2);</span>
+<span class="fc" id="L220">    } // Cierre del caso de prueba</span>
+
+    /**
+     * Método llamado después de cada caso de prueba.
+     */
+    @AfterEach
+    public void tearDown() {
+<span class="fc" id="L227">    } // Cierre del caso de prueba</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

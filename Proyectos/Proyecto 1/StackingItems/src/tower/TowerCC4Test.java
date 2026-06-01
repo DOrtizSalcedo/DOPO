@@ -1,0 +1,43 @@
+package tower;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Clase que contiene casos de prueba propuestos por los integrantes.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 30/03/2026
+ */
+public class TowerCC4Test {
+    private Tower newTower;
+
+    /**
+     * Método llamado antes de cada caso de prueba.
+     */
+    @BeforeEach
+    public void setUp() {
+        newTower = new Tower(40, 100);
+    } // Cierre del método
+    
+    // Propuesta
+    /**
+     * Caso de prueba que verifica que una nueva HierarchicalCup deba estar en la base.
+     */
+    @Test
+    public void accordingToCuervoOrtizShouldBeInTheBase() {
+        newTower.pushCup("hierarchical", 3);
+        newTower.pushCup("hierarchical", 5);
+        assertTrue(newTower.ok());
+    } // Cierre del caso de prueba
+
+    /**
+     * Método llamado después de cada caso de prueba.
+     */
+    @AfterEach
+    public void tearDown() {
+    } // Cierre del método
+} // Cierre de la clase

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=ForestException
+comment0.text=\r\n\ La\ clase\ excepci\u00F3n\ del\ simulador\ Forest.\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 04/05/2026\r\n
+comment1.params=mensaje
+comment1.target=ForestException(java.lang.String)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ excepci\u00F3n\ ForestException.\r\n\ \r\n\ @param\ message\ La\ excepci\u00F3n\ a\ mostrar.\r\n
+numComments=2

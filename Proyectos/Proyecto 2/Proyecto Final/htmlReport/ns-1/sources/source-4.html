@@ -1,0 +1,410 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TheDopoHardestGame</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">domain.core</a>
+</div>
+
+<h1>Coverage Summary for Class: TheDopoHardestGame (domain.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TheDopoHardestGame</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38,1%
+  </span>
+  <span class="absValue">
+    (8/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5,6%
+  </span>
+  <span class="absValue">
+    (1/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23,2%
+  </span>
+  <span class="absValue">
+    (13/56)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package domain.core;
+&nbsp;
+&nbsp;import domain.entities.Player;
+&nbsp;import domain.entities.factory.GameModeFactory;
+&nbsp;import domain.entities.strategy.GameModeStrategy;
+&nbsp;import domain.exceptions.TheDopoHardestGameException;
+&nbsp;import domain.level.GameConfiguration;
+&nbsp;import domain.level.Level;
+&nbsp;import domain.save.memento.GameCaretaker;
+&nbsp;import domain.save.memento.GameMemento;
+&nbsp;
+&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * La clase principal del juego en la capa de dominio.
+&nbsp; *
+&nbsp; * @author Juan Pablo Cuervo Contreras
+&nbsp; * @author David Felipe Ortiz Salcedo
+&nbsp; * @version 16/05/2026
+&nbsp; */
+&nbsp;
+&nbsp;public class TheDopoHardestGame {
+&nbsp;    private final GameEngine engine;
+&nbsp;    private final GameCaretaker caretaker;
+&nbsp;    private final List&lt;GameConfiguration&gt; configurations;
+&nbsp;    private int currentConfigurationIndex;
+&nbsp;    private File currentLevelFile;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * El constructor de la fachada.
+&nbsp;     */
+<b class="fc">&nbsp;    public TheDopoHardestGame() {</b>
+<b class="fc">&nbsp;        this.engine = GameEngine.getInstance();</b>
+<b class="fc">&nbsp;        this.caretaker = new GameCaretaker();</b>
+<b class="fc">&nbsp;        this.configurations = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.currentConfigurationIndex = 0;</b>
+&nbsp;    } // Cierre del constructor
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite iniciar el juego.
+&nbsp;     * @param configuration El nivel que se va a jugar.
+&nbsp;     * @throws TheDopoHardestGameException La excepción a lanzar.
+&nbsp;     */
+&nbsp;    public void startGame(GameConfiguration configuration) throws TheDopoHardestGameException {
+<b class="nc">&nbsp;        startGame(configuration, currentLevelFile);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite iniciar el juego.
+&nbsp;     * @param configuration El nivel que se va a jugar.
+&nbsp;     * @param levelFile El archivo del nivel que se va a jugar.
+&nbsp;     * @throws TheDopoHardestGameException La excepción a lanzar.
+&nbsp;     */
+&nbsp;    public void startGame(GameConfiguration configuration, File levelFile)
+&nbsp;            throws TheDopoHardestGameException {
+<b class="nc">&nbsp;        startGame(configuration, levelFile, null);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite iniciar el juego.
+&nbsp;     *
+&nbsp;     * @param configuration El nivel que se va a jugar.
+&nbsp;     * @param levelFile El archivo del nivel que se va a jugar.
+&nbsp;     * @param memento El estado del juego.
+&nbsp;     * @throws TheDopoHardestGameException La excepción a lanzar si no hay jugadores.
+&nbsp;     */
+&nbsp;    public void startGame(GameConfiguration configuration, File levelFile, GameMemento memento)
+&nbsp;            throws TheDopoHardestGameException {
+&nbsp;
+<b class="nc">&nbsp;        if(engine.getPlayers().isEmpty()) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(TheDopoHardestGameException.NO_PLAYERS);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        engine.stopGame();</b>
+&nbsp;
+<b class="nc">&nbsp;        this.currentLevelFile = levelFile;</b>
+<b class="nc">&nbsp;        engine.setCurrentLevelFile(levelFile);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(memento != null) {</b>
+<b class="nc">&nbsp;            engine.setGameMode(memento.getMode());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Level level = configuration.buildLevel(currentConfigurationIndex + 1);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(level == null) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(TheDopoHardestGameException.LEVEL_LOAD_ERROR);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        engine.loadLevel(level);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(memento != null) {</b>
+<b class="nc">&nbsp;            engine.restoreMemento(memento);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        engine.startGame();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite pausar el juego.
+&nbsp;     */
+&nbsp;    public void pauseGame() {
+<b class="nc">&nbsp;        engine.pauseGame();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite reanudar el juego.
+&nbsp;     */
+&nbsp;    public void resumeGame() {
+<b class="nc">&nbsp;        engine.resumeGame();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite guardar el estado del juego.
+&nbsp;     *
+&nbsp;     * @param saveFile El nivel a ser guardado.
+&nbsp;     */
+&nbsp;    public void saveGame(File saveFile) throws TheDopoHardestGameException {
+<b class="nc">&nbsp;        if(saveFile == null || currentLevelFile == null) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(TheDopoHardestGameException.SAVE_GAME_ERROR);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        engine.setCurrentLevelFile(currentLevelFile);</b>
+&nbsp;
+<b class="nc">&nbsp;        GameMemento memento = engine.createMemento();</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            caretaker.save(saveFile, memento);</b>
+<b class="nc">&nbsp;            caretaker.saveMemento(memento);</b>
+&nbsp;        } catch (IOException exception) {
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(</b>
+&nbsp;                    TheDopoHardestGameException.SAVE_GAME_ERROR
+&nbsp;                            + &quot;: &quot;
+<b class="nc">&nbsp;                            + exception.getMessage());</b>
+&nbsp;        }
+&nbsp;    }// Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite finalizar el juego.
+&nbsp;     */
+&nbsp;    public void endGame() {
+<b class="nc">&nbsp;        engine.stopGame();</b>
+<b class="nc">&nbsp;        engine.returnToMenu();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite añadir un jugador al juego.
+&nbsp;     *
+&nbsp;     * @param player El jugador a añadir.
+&nbsp;     */
+&nbsp;    public void addPlayer(Player player) throws TheDopoHardestGameException {
+<b class="pc">&nbsp;        if(player == null) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(TheDopoHardestGameException.NO_PLAYERS);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        engine.getPlayers().add(player);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite mover un jugador a cualquier dirección.
+&nbsp;     *
+&nbsp;     * @param player El jugador que se va a mover.
+&nbsp;     * @param direction La dirección donde quiere ir.
+&nbsp;     */
+&nbsp;    public void movePlayer(Player player, String direction) {
+<b class="nc">&nbsp;        engine.movePlayer(player, direction);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite eliminar todos los jugadores del juego.
+&nbsp;     */
+&nbsp;    public void clearPlayers() {
+<b class="fc">&nbsp;        engine.getPlayers().clear();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite cambiar el modo del juego.
+&nbsp;     *
+&nbsp;     * @param mode El modo que se va a cambiar: SinglePlayer y PlayerVsPlayer por el momento.
+&nbsp;     */
+&nbsp;    public void setGameMode(String mode) throws TheDopoHardestGameException {
+<b class="nc">&nbsp;        if(mode == null) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(TheDopoHardestGameException.INVALID_GAMEMODE);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        engine.setGameMode(mode);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite cargar un nivel guardado.
+&nbsp;     *
+&nbsp;     * @param saveFile El nivel guardado que se va a jugar.
+&nbsp;     * @throws Exception La excepción que se lanza por si no se encuentra el archivo.
+&nbsp;     */
+&nbsp;    public GameMemento loadLevel(File saveFile)
+&nbsp;            throws TheDopoHardestGameException, IOException, ClassNotFoundException {
+&nbsp;
+<b class="nc">&nbsp;        if(saveFile == null) {</b>
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(</b>
+&nbsp;                    TheDopoHardestGameException.LOAD_GAME_ERROR);
+&nbsp;        }
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            GameMemento memento = caretaker.load(saveFile);</b>
+<b class="nc">&nbsp;            caretaker.saveMemento(memento);</b>
+<b class="nc">&nbsp;            return memento;</b>
+&nbsp;
+&nbsp;        } catch (IOException | ClassNotFoundException exception) {
+&nbsp;
+&nbsp;            throw exception;
+&nbsp;
+&nbsp;        } catch (Exception exception) {
+&nbsp;
+<b class="nc">&nbsp;            throw new TheDopoHardestGameException(</b>
+&nbsp;                    TheDopoHardestGameException.LOAD_GAME_ERROR
+&nbsp;                            + &quot;: &quot;
+<b class="nc">&nbsp;                            + exception.getMessage());</b>
+&nbsp;        }
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que permite añadir un observador al juego.
+&nbsp;     *
+&nbsp;     * @param observer El observador que sólo verá el juego.
+&nbsp;     */
+&nbsp;    public void addObserver(GameObserver observer) {
+<b class="fc">&nbsp;        engine.addObserver(observer);</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene la cantidad de jugadores.
+&nbsp;     *
+&nbsp;     * @return List&lt;Player&gt; La lista de jugadores en el juego.
+&nbsp;     */
+&nbsp;    public List&lt;Player&gt; getPlayers() {
+<b class="fc">&nbsp;        return engine.getPlayers();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene el nivel actual.
+&nbsp;     *
+&nbsp;     * @return Level El nivel actual.
+&nbsp;     */
+&nbsp;    public Level getCurrentLevel() {
+<b class="fc">&nbsp;        return engine.getCurrentLevel();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene el tiempo restante del nivel.
+&nbsp;     *
+&nbsp;     * @return int El tiempo restante del nivel (180s).
+&nbsp;     */
+&nbsp;    public int getRemainingTime() {
+<b class="fc">&nbsp;        return engine.getRemainingTime();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene el estado del juego.
+&nbsp;     *
+&nbsp;     * @return GameState El estado del juego.
+&nbsp;     */
+&nbsp;    public GameState getGameState() {
+<b class="nc">&nbsp;        return engine.getCurrentState();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene la cantidad de monedas
+&nbsp;     * recogidas por el jugador.
+&nbsp;     *
+&nbsp;     * @return int La cantidad de monedas obtenidas por el jugador.
+&nbsp;     */
+&nbsp;    public int getCollectedCoins() {
+<b class="nc">&nbsp;        return engine.getCollectedCoinsCount();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene la cantidad total de monedas.
+&nbsp;     *
+&nbsp;     * @return int La cantidad total de monedas.
+&nbsp;     */
+&nbsp;    public int getTotalCoins() {
+<b class="fc">&nbsp;        return engine.getTotalCoinsCount();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Método que obtiene el ganador del juego.
+&nbsp;     *
+&nbsp;     * @return Player El ganador del juego.
+&nbsp;     */
+&nbsp;    public Player getWinner() {
+<b class="nc">&nbsp;        return engine.getWinner();</b>
+&nbsp;    } // Cierre del método
+&nbsp;
+&nbsp;} // Cierre de la clase
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-16 21:04</div>
+</div>
+</body>
+</html>

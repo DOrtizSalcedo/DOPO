@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=TowerCC4Test
+comment0.text=\r\n\ Clase\ que\ contiene\ casos\ de\ prueba\ propuestos\ por\ los\ integrantes.\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 30/03/2026\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ M\u00E9todo\ llamado\ antes\ de\ cada\ caso\ de\ prueba.\r\n
+comment2.params=
+comment2.target=void\ accordingToCuervoOrtizShouldBeInTheBase()
+comment2.text=\r\n\ Caso\ de\ prueba\ que\ verifica\ que\ una\ nueva\ HierarchicalCup\ deba\ estar\ en\ la\ base.\r\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\r\n\ M\u00E9todo\ llamado\ despu\u00E9s\ de\ cada\ caso\ de\ prueba.\r\n
+numComments=4

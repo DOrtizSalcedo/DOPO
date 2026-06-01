@@ -1,0 +1,43 @@
+#BlueJ class context
+comment0.target=DataFrameTest
+comment0.text=\r\n\ Permite\ realizar\ casos\ para\ comprobar\ que\ el\ c\u00F3digo\ funciona.\r\n\ @autor\:\ Juan\ Pablo\ Cuervo\ Contreras,\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\:\ 21/02/2026\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ Sets\ up\ the\ test\ fixture.\r\n\r\n\ Called\ before\ every\ test\ case\ method.\r\n
+comment10.params=
+comment10.target=void\ shouldNotAssignNull()
+comment11.params=
+comment11.target=void\ shouldSelectRowsCorrectly()
+comment11.text=\r\n\ Verifica\ que\ las\ filas\ seleccionadas\ sean\ las\ correctas.\r\n
+comment12.params=
+comment12.target=void\ shouldSelectColumnsCorrectly()
+comment12.text=\r\n\ Verifica\ que\ las\ columnas\ seleccionadas\ sean\ las\ correctas.\r\n
+comment13.params=
+comment13.target=void\ shouldFilterByConditionCorrectly()
+comment13.text=\r\n\ Filtra\ por\ una\ condici\u00F3n\ correcta.\r\n
+comment14.params=
+comment14.target=void\ tearDown()
+comment14.text=\r\n\ Tears\ down\ the\ test\ fixture.\r\n\r\n\ Called\ after\ every\ test\ case\ method.\r\n
+comment2.params=
+comment2.target=void\ shouldCreateSmallestDataFrame()
+comment2.text=\r\n\ Verifica\ que\ se\ pueda\ crear\ un\ DataFrame\ peque\u00F1o.\r\n
+comment3.params=
+comment3.target=void\ shouldCreateOtherDataFrame()
+comment3.text=\r\n\ Verifica\ que\ se\ pueda\ crear\ un\ DataFrame\ completo.\r\n
+comment4.params=
+comment4.target=void\ shouldNotCreateBadDataFrame()
+comment4.text=\r\n\ Verifica\ que\ no\ se\ pueda\ crear\ un\ DataFrame\ incompleto.\r\n
+comment5.params=
+comment5.target=void\ shouldPass()
+comment5.text=\r\n\ Verifica\ que\ 15\ \=\ 10\ +\ 5.\r\n
+comment6.params=
+comment6.target=void\ shouldFail()
+comment6.text=\r\n\ Verifica\ que\ si\ 4\ \=\ (10\ /\ 2)\ ->\ 5.\r\n
+comment7.params=
+comment7.target=void\ shouldErr()
+comment7.text=\r\n\ Verifica\ si\ la\ suma\ es\ mayor\ a\ 9\ (8\ >\ 9).\r\n
+comment8.params=
+comment8.target=void\ shouldHaveAName()
+comment9.params=
+comment9.target=void\ shouldNotNameNull()
+numComments=15

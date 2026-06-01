@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Pine
+comment0.text=\r\n\ Clase\ que\ representa\ un\ Pino\ en\ el\ bosque.\r\n\ A\ diferencia\ de\ un\ \u00E1rbol\ normal,\ el\ pino\ siempre\ es\ verde\ oscuro\ y\ resiste\ m\u00E1s.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 04/05/2026\r\n
+comment1.params=forest\ row\ column
+comment1.target=Pine(Forest,\ int,\ int)
+comment1.text=\r\n\ Constructor\ para\ la\ clase\ Pine.\r\n\ \r\n\ @param\ forest\ el\ bosque\r\n\ @param\ row\ fila\r\n\ @param\ column\ columna\r\n
+comment2.params=
+comment2.target=void\ ticTac()
+comment2.text=\r\n\ El\ ticTac\ del\ pino\ es\ similar\ al\ del\ \u00E1rbol\ pero\ no\ cambia\ de\ color\r\n\ con\ las\ estaciones.\r\n
+numComments=3

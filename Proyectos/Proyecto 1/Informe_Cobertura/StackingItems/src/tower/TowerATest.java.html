@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TowerATest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">TowerATest.java</span></div><h1>TowerATest.java</h1><pre class="source lang-java linenums">package tower;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Clase de prueba que tiene como objetivo verificar que el proyecto completo funcione
+ * correctamente.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 15/04/2026
+ */
+<span class="fc" id="L16">public class TowerATest {</span>
+    private Tower newTower;
+
+    /**
+     * Método llamado antes de cada caso de prueba.
+     */
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L24">        newTower = new Tower(10, 100);</span>
+<span class="fc" id="L25">    } // Cierre de la clase de prueba</span>
+    
+    /**
+     * Caso de prueba que verifica que no se puedan agregar dos tazas del mismo tamaño
+     * sin importar que tipo de taza sea.
+     */
+    @Test
+    public void shouldNotAddTwoSameCups() {
+<span class="fc" id="L33">        newTower.pushCup(&quot;opener&quot;, 5);</span>
+<span class="fc" id="L34">        newTower.pushCup(&quot;hierarchical&quot;, 5);</span>
+<span class="fc" id="L35">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L36">    } // Cierre de la clase de prueba</span>
+    
+    /**
+     * Caso de prueba que comprueba que una taza deba ser tapada.
+     */
+    @Test
+    public void shouldCoverCup() {
+<span class="fc" id="L43">    	newTower.pushCup(&quot;normal&quot;, 5);</span>
+<span class="fc" id="L44">    	newTower.pushLid(&quot;normal&quot;, 5);</span>
+<span class="fc" id="L45">    	newTower.cover();</span>
+<span class="fc" id="L46">    	assertTrue(newTower.ok());</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Método llamado después de cada caso de prueba.
+     */
+    @AfterEach
+    public void tearDown() {
+<span class="fc" id="L54">    } // Cierre de la clase de prueba</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

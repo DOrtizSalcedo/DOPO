@@ -1,0 +1,3 @@
+Tamaño del bosque 20
+Pine 10 4
+Water 1 6

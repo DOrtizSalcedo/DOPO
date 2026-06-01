@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Tree
+comment0.text=\r\n\ Clase\ que\ contiene\ la\ l\u00F3gica\ de\ un\ \u00E1rbol\ en\ el\ bosque.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 18/03/2026\r\n
+comment1.params=forest\ row\ column
+comment1.target=Tree(Forest,\ int,\ int)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Tree.\r\n
+comment2.params=
+comment2.target=int\ getRow()
+comment2.text=\r\n\ M\u00E9todo\ que\ obtiene\ la\ posici\u00F3n\ de\ fila\ del\ \u00E1rbol.\r\n\ \r\n\ @return\ int\ Retorna\ la\ posici\u00F3n\ de\ fila.\r\n
+comment3.params=
+comment3.target=int\ getColumn()
+comment3.text=\r\n\ M\u00E9todo\ que\ obtiene\ la\ posici\u00F3n\ de\ columna\ del\ \u00E1rbol.\r\n\ \r\n\ @return\ int\ Retorna\ la\ posici\u00F3n\ de\ columna.\r\n
+comment4.params=
+comment4.target=java.awt.Color\ getColor()
+comment4.text=\r\n\ M\u00E9todo\ que\ retorna\ el\ color\ del\ \u00E1rbol.\r\n\ \r\n\ @return\ Color\ Retorna\ el\ color\ determinado\ del\ \u00E1rbol.\r\n
+comment5.params=
+comment5.target=int\ shape()
+comment5.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ forma\ del\ \u00E1rbol.\r\n\ \r\n\ @return\ int\ El\ tama\u00F1o\ de\ la\ figura\ que\ representa\ al\ \u00E1rbol.\r\n
+comment6.params=
+comment6.target=void\ ticTac()
+comment6.text=\r\n\ M\u00E9todo\ que\ sobre-escribe\ la\ l\u00F3gica\ de\ los\ pasos,\ en\ este\ caso,\ para\ un\ \u00E1rbol.\ \r\n\ Muere\ cuando\ pierde\ energ\u00EDa\ hasta\ 203\ tictacs.\r\n\ \r\n
+comment7.params=
+comment7.target=void\ die()
+comment7.text=\r\n\ M\u00E9todo\ que\ permite\ morir\ al\ \u00E1rbol.\r\n
+numComments=8

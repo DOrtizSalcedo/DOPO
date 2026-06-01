@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Earth
+comment0.text=\r\n\ Clase\ que\ representa\ a\ la\ Tierra\ en\ el\ bosque.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 04/05/2026\r\n
+comment1.params=forest\ row\ column
+comment1.target=Earth(Forest,\ int,\ int)
+comment2.params=
+comment2.target=int\ shape()
+comment3.params=
+comment3.target=java.awt.Color\ getColor()
+comment4.params=
+comment4.target=void\ ticTac()
+numComments=5

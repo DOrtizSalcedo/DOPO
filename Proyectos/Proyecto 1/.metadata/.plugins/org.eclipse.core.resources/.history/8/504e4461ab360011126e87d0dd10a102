@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module StackingCups {
+	requires java.desktop;
+	requires org.junit.jupiter.api;
+	exports shapes;
+	exports towerr;
+}

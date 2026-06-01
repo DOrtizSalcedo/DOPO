@@ -1,0 +1,31 @@
+#BlueJ class context
+comment0.target=DataFrame
+comment0.text=\r\n\ Estructura\ de\ datos\ que\ contiene\ datos\ heterog\u00E9neos.\r\n\ @autor\:\ Juan\ Pablo\ Cuervo\ Contreras,\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\:\ 21/02/2026\r\n
+comment1.params=data\ columns
+comment1.target=DataFrame(java.lang.String[][],\ java.lang.String[])
+comment1.text=\r\n\ Constructor\ para\ la\ estructura\ de\ datos.\r\n\ @param\ data\ Son\ las\ filas\ que\ contienen\ informaci\u00F3n.\r\n\ @param\ columns\ Son\ las\ columnas\ que\ contienen\ informaci\u00F3n.\r\n
+comment2.params=dfs\ axis
+comment2.target=DataFrame\ concat(DataFrame[],\ byte)
+comment2.text=\r\n\ M\u00E9todo\ que\ concatena\ el\ DataFrame\ actual\ con\ otros\ DataFrames\ de\ forma\ simple.\r\n\ @param\ dfs\ Arreglo\ de\ DataFrames\ a\ concatenar\ (usaremos\ el\ primero).\r\n\ @param\ axis\ Eje\ de\ concatenaci\u00F3n\:\ 0\ para\ filas,\ 1\ para\ columnas.\r\n\ @return\ Un\ nuevo\ DataFrame\ con\ los\ datos\ unidos.\r\n
+comment3.params=
+comment3.target=int[]\ shape()
+comment3.text=\r\n\ Retorna\ el\ tama\u00F1o\ completo\ de\ la\ tabla.\r\n\ @return\ Un\ HashMap\ que\ dice\ el\ tama\u00F1o\ completo\ de\ la\ tabla.\r\n
+comment4.params=rows
+comment4.target=java.lang.String\ head(int)
+comment4.text=\r\n\ M\u00E9todo\ que\ retorna\ las\ primeras\ filas\ de\ una\ tabla.\r\n\ @param\ rows\ El\ par\u00E1metro\ rows\ indica\ las\ filas\ de\ la\ tabla.\r\n
+comment5.params=df
+comment5.target=boolean\ equals(DataFrame)
+comment5.text=\r\n\ Verifica\ si\ el\ DataFrame\ es\ igual.\r\n\ @param\ df\ El\ par\u00E1metro\ df\ es\ un\ DataFrame\ para\ verificar\ si\ es\ igual\ a\ otro.\r\n\ @return\ Un\ booleano\ dependiendo\ si\ es\ igual\ o\ no.\r\n
+comment6.params=o
+comment6.target=boolean\ equals(java.lang.Object)
+comment6.text=\r\n\ Verifica\ si\ el\ DataFrame\ es\ igual.\r\n\ @param\ o\ El\ par\u00E1metro\ o\ es\ un\ Objeto\ que\ verifica\ si\ es\ igual\ a\ otro\ objeto.\r\n\ @return\ Un\ booleano\ dependiendo\ si\ es\ igual\ o\ no.\r\n
+comment7.params=rows
+comment7.target=DataFrame\ selectRows(int[])
+comment7.text=\r\n\ M\u00E9todo\ que\ selecciona\ filas\ espec\u00EDficas\ seg\u00FAn\ sus\ \u00EDndices.\r\n\ @param\ rows\ \u00CDndices\ de\ las\ filas\ a\ seleccionar.\r\n\ @return\ Un\ nuevo\ DataFrame\ con\ las\ filas\ seleccionadas.\r\n
+comment8.params=colNames
+comment8.target=DataFrame\ selectColumns(java.lang.String[])
+comment8.text=\r\n\ M\u00E9todo\ que\ selecciona\ columnas\ espec\u00EDficas\ seg\u00FAn\ sus\ nombres.\r\n\ @param\ colNames\ Nombres\ de\ las\ columnas\ a\ seleccionar.\r\n\ @return\ Un\ nuevo\ DataFrame\ con\ las\ columnas\ seleccionadas.\r\n
+comment9.params=colName\ value
+comment9.target=DataFrame\ filterCondition(java.lang.String,\ java.lang.String)
+comment9.text=\r\n\ M\u00E9todo\ que\ filtra\ las\ filas\ que\ cumplen\ una\ condici\u00F3n\ exacta\ (columna\ \=\=\ valor).\r\n\ @param\ colName\ Nombre\ de\ la\ columna\ a\ evaluar.\r\n\ @param\ value\ Valor\ que\ debe\ tener\ la\ columna.\r\n\ @return\ Un\ nuevo\ DataFrame\ con\ las\ filas\ filtradas.\r\n
+numComments=10

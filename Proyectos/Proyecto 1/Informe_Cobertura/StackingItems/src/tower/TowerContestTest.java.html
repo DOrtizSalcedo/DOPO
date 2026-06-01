@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TowerContestTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">TowerContestTest.java</span></div><h1>TowerContestTest.java</h1><pre class="source lang-java linenums">package tower;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+/**
+ * Pruebas unitarias para la clase TowerContest (2 pruebas por cada método).
+ *
+ * @author Juan Pablo Cuervo Contreras 
+ * @author David Felipe Ortiz Salcedo
+ * @version 15/03/2026
+ */
+<span class="fc" id="L17">public class TowerContestTest {</span>
+    private TowerContest contest;
+
+    /**
+     *
+     * Método llamado antes de los casos de prueba.
+     */
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L26">        contest = new TowerContest();</span>
+<span class="fc" id="L27">    } // Cierre del caso de prueba</span>
+    
+    // solve
+    /**
+     * Verifica que retorne la secuencia correcta de tazas para un caso válido. Ejemplo: n = 4 y h = 9
+     */
+    @Test
+    public void shouldSolveAValidCase() {
+<span class="fc" id="L35">        String answer = contest.solve(4, 9);</span>
+<span class="fc" id="L36">        assertEquals(&quot;7 3 5 1&quot;, answer);</span>
+<span class="fc" id="L37">    } // Cierre del caso de prueba</span>
+
+    /**
+     * Verifica que retorne 'impossible' donde excede la altura de la torre.
+     */
+    @Test
+    public void shouldReturnImpossible() {
+<span class="fc" id="L44">        String resultado = contest.solve(4, 100);</span>
+<span class="fc" id="L45">        assertEquals(&quot;impossible&quot;, resultado);</span>
+<span class="fc" id="L46">    } // Cierre del caso de prueba</span>
+    
+    // simulate
+    /**
+     * Verifica que no lance excepciones al intentar simular gráficamente un caso válido.
+     */
+    @Test
+    public void shouldNotThrowExceptionAtAValidCase() {
+<span class="fc" id="L54">        assertDoesNotThrow(() -&gt; {</span>
+<span class="fc" id="L55">            contest.simulate(4, 9);</span>
+<span class="fc" id="L56">        }, &quot;No se debe lanzar excepción&quot;);</span>
+<span class="fc" id="L57">    } // Cierre del caso de prueba</span>
+
+    /**
+     * Verifica que no lance excepciones al intentar simular un caso imposible.
+     */
+    @Test
+    public void shouldThrowExceptionIfImpossible() {
+<span class="fc" id="L64">        assertDoesNotThrow(() -&gt; {</span>
+<span class="fc" id="L65">            contest.simulate(4, 100);</span>
+<span class="fc" id="L66">        }, &quot;No se debe lanzar excepción&quot;);</span>
+<span class="fc" id="L67">    } // Cierre del caso de prueba</span>
+
+    //main
+    /**
+     * Verifica que el método principal se ejecute normal.
+     */
+    @Test
+    public void shouldExecuteNormally() {
+<span class="fc" id="L75">        assertDoesNotThrow(() -&gt; {</span>
+<span class="fc" id="L76">            main(new String[]{});</span>
+<span class="fc" id="L77">        }, &quot;No se debe lanzar excepción&quot;);</span>
+<span class="fc" id="L78">    } // Cierre del caso de prueba</span>
+
+    /**
+     * Verifica que la salida por consola tenga los resultados esperados.
+     */
+    @Test
+    public void shouldReturnExpectedAnswer() {
+        // Capturar la salida estándar de consola
+<span class="fc" id="L86">        ByteArrayOutputStream outContent = new ByteArrayOutputStream();</span>
+<span class="fc" id="L87">        PrintStream originalOut = System.out;</span>
+<span class="fc" id="L88">        System.setOut(new PrintStream(outContent));</span>
+
+        // Ejecutar el main
+<span class="fc" id="L91">        main(new String[]{});</span>
+
+        // Restaurar la salida original
+<span class="fc" id="L94">        System.setOut(originalOut);</span>
+
+        // Validar el contenido de la salida
+<span class="fc" id="L97">        String salida = outContent.toString();</span>
+<span class="fc" id="L98">        assertTrue(salida.contains(&quot;Resultados de la Competencia&quot;), &quot;La salida debe contener el encabezado&quot;);</span>
+<span class="fc" id="L99">        assertTrue(salida.contains(&quot;n=4, h=9 =&gt; 7 3 5 1&quot;), &quot;La salida debe mostrar el resultado del primer caso evaluado&quot;);</span>
+<span class="fc" id="L100">        assertTrue(salida.contains(&quot;n=4, h=100 =&gt; impossible&quot;), &quot;La salida debe mostrar el resultado del caso imposible&quot;);</span>
+<span class="fc" id="L101">    } // Cierre del caso de prueba</span>
+    
+        /**
+     * Método principal para ejecutar y validar los casos de prueba de la competencia.
+     * 
+     * @param args Argumentos de la línea de comandos.
+     */
+    public static void main(String[] args) {
+<span class="fc" id="L109">        TowerContest contest = new TowerContest();</span>
+
+<span class="fc" id="L111">        int[][] testCases = {</span>
+<span class="fc" id="L112">                {4, 9},</span>
+<span class="fc" id="L113">                {4, 100}</span>
+        };
+
+<span class="fc" id="L116">        System.out.println(&quot;Resultados de la Competencia&quot;);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        for (int[] test : testCases) {</span>
+<span class="fc" id="L118">            int n = test[0];</span>
+<span class="fc" id="L119">            int h = test[1];</span>
+<span class="fc" id="L120">            String result = contest.solve(n, h);</span>
+<span class="fc" id="L121">            System.out.println(&quot;n=&quot; + n + &quot;, h=&quot; + h + &quot; =&gt; &quot; + result);</span>
+        }
+<span class="fc" id="L123">    } // Cierre del método</span>
+    /**
+     *
+     * Método llamado después de los casos de prueba.
+     */
+    @AfterEach
+    public void tearDown() {
+<span class="fc" id="L130">    } // Cierre del caso de prueba</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

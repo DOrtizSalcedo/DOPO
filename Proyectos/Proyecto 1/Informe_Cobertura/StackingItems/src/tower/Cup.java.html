@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Cup.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">Cup.java</span></div><h1>Cup.java</h1><pre class="source lang-java linenums">package tower;
+import java.util.*;
+import shapes.*;
+
+/**
+ * Representa una taza dentro de la simulación.
+ * Esta clase encapsula la lógica visual y dimensional de una taza individual.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 30/03/2026
+ */
+
+public abstract class Cup extends StackItem {
+    protected Rectangle left;
+    protected Rectangle right;
+    protected Rectangle bottom;
+
+    /**
+     * Constructor de la clase Cup.
+     *
+     * @param size El tamaño de la taza.
+     * @param color El color visual de la taza.
+     * @param x La coordenada X deseada.
+     * @param y La coordenada Y deseada.
+     * @param creationId El id único de creación.
+     */
+    public Cup(int size, String color, int x, int y, int creationId) {
+<span class="fc" id="L29">        super(size, color, creationId);</span>
+<span class="fc" id="L30">        int widthPx = size * 20; </span>
+<span class="fc" id="L31">        int heightPx = size * 10;</span>
+<span class="fc" id="L32">        int thickness = 10;</span>
+        
+<span class="fc" id="L34">        left = new Rectangle();</span>
+<span class="fc" id="L35">        left.changeSize(heightPx, thickness);</span>
+<span class="fc" id="L36">        left.changeColor(color);</span>
+<span class="fc" id="L37">        left.moveHorizontal(x - 70);</span>
+<span class="fc" id="L38">        left.moveVertical(y - 15);</span>
+        
+<span class="fc" id="L40">        right = new Rectangle();</span>
+<span class="fc" id="L41">        right.changeSize(heightPx, thickness);</span>
+<span class="fc" id="L42">        right.changeColor(color);</span>
+<span class="fc" id="L43">        right.moveHorizontal(x - 70 + widthPx - thickness);</span>
+<span class="fc" id="L44">        right.moveVertical(y - 15);</span>
+        
+<span class="fc" id="L46">        bottom = new Rectangle();</span>
+<span class="fc" id="L47">        bottom.changeSize(thickness, widthPx);</span>
+<span class="fc" id="L48">        bottom.changeColor(color);</span>
+<span class="fc" id="L49">        bottom.moveHorizontal(x - 70);</span>
+<span class="fc" id="L50">        bottom.moveVertical(y - 15 + heightPx - thickness);</span>
+<span class="fc" id="L51">    } // Cierre del constructor</span>
+    
+    /**
+     * Obtiene la vista gráfica de la taza.
+     * Este método permite a la clase controladora (Tower) gestionar la visibilidad.
+     *
+     * @return El objeto Rectangle que representa visualmente a la taza.
+     */
+    @Override
+    public Rectangle getView() {
+<span class="nc" id="L61">        return bottom;</span>
+    } // Cierre del método
+    
+    /**
+     * Mueve el objeto a una posición indicada.
+     * 
+     * @param x La posición en x deseada.
+     * @param y La posición en y deseada.
+     */
+    public void moveTo(int x, int y) {
+<span class="fc" id="L71">        int widthPx = size * 20;</span>
+<span class="fc" id="L72">        int heightPx = size * 10;</span>
+<span class="fc" id="L73">        int thickness = 8;</span>
+        
+<span class="fc" id="L75">        left.moveTo(x - 20, y);</span>
+<span class="fc" id="L76">        right.moveTo(x - 20 + widthPx - thickness, y);</span>
+<span class="fc" id="L77">        bottom.moveTo(x - 20, y + heightPx - thickness);</span>
+<span class="fc" id="L78">    } // Cierre del método</span>
+    
+    /**
+     * Obtiene la altura de la taza en cm a partir de su tamaño.
+     *
+     * @return La altura en cm.
+     */
+    @Override
+    public int getHeight() {
+<span class="fc" id="L87">        return size;</span>
+    } // Cierre del método
+    
+    /**
+     * Dice de qué tipo es (en este caso una taza).
+     * 
+     * @return String Qué tipo de item es.
+     */
+    @Override
+    public String getType() {
+<span class="fc" id="L97">        return &quot;cup&quot;;</span>
+    } // Cierre del método
+    
+    /**
+     * Hace que la taza se pueda visualizar.
+     */
+    @Override
+    public void makeVisible() {
+<span class="fc" id="L105">        left.makeVisible();</span>
+<span class="fc" id="L106">        right.makeVisible();</span>
+<span class="fc" id="L107">        bottom.makeVisible();</span>
+<span class="fc" id="L108">    } // Cierre del método</span>
+    
+    /**
+     * Hace que la taza no se pueda visualizar.
+     */
+    @Override
+    public void makeInvisible() {
+<span class="nc" id="L115">        left.makeInvisible();</span>
+<span class="nc" id="L116">        right.makeInvisible();</span>
+<span class="nc" id="L117">        bottom.makeInvisible();</span>
+<span class="nc" id="L118">    } // Cierre del método</span>
+    
+    /**
+     * Cambia la apariencia de la taza para indicar que está tapada.
+     * Cumple con el requisito de usabilidad de hacer que luzcan diferentes.
+     */
+    public void setCoveredStatus(boolean isCovered) {
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if (isCovered) {</span>
+<span class="fc" id="L126">            left.changeColor(&quot;blue&quot;);</span>
+<span class="fc" id="L127">            right.changeColor(&quot;blue&quot;);</span>
+<span class="fc" id="L128">            bottom.changeColor(&quot;blue&quot;);</span>
+        } 
+<span class="fc" id="L130">    } // Cierre del método</span>
+    
+    /**
+     * Método abstracto que tiene como fin definir el comportamiento de una taza.
+     * 
+     * @param items La lista que contiene un item.
+     */
+    public abstract void actionPush(ArrayList&lt;StackItem&gt; items); // Cierre del método
+} //Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

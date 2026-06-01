@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=FifaAddPlayerTest
+comment0.text=\r\n\ The\ test\ class\ FifaAddTest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ M\u00E9todo\ llamado\ antes\ de\ cada\ caso\ de\ prueba.\r\n
+comment2.params=
+comment2.target=void\ shouldAddAPlayerNormally()
+comment3.params=
+comment3.target=void\ shouldThrowExceptionIfPlayerAlreadyExists()
+comment4.params=
+comment4.target=void\ shouldFailWhenClubIsEmpty()
+comment5.params=
+comment5.target=void\ shouldFailWhenMinutesAreNegative()
+comment6.params=
+comment6.target=void\ shouldFailWhenValueIsNegative()
+comment7.params=
+comment7.target=void\ shouldThrowExceptionIfValuesAreNotNumeric()
+comment8.params=
+comment8.target=void\ shouldThrowExceptionIfNameIsEmpty()
+comment9.params=
+comment9.target=void\ tearDown()
+comment9.text=\r\n\ M\u00E9todo\ llamado\ despu\u00E9s\ de\ cada\ caso\ de\ prueba.\r\n
+numComments=10

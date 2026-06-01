@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TowerContest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">TowerContest.java</span></div><h1>TowerContest.java</h1><pre class="source lang-java linenums">package tower;
+
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import java.util.StringJoiner;
+import java.util.Set;
+import java.util.HashSet;
+
+/**
+ * Clase que resuelve y simula el problema de la maratón de las tazas.
+ * Implementa la lógica matemática para encontrar el orden de las tazas y su respectiva visualización gráfica.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 14/03/2026
+ */
+<span class="fc" id="L19">public class TowerContest {</span>
+
+    /**
+     * Clase que resuelve el problema de la maratón.
+     *
+     * @param n Cantidad de tazas a poner en la torre.
+     * @param h La altura requerida que debe alcanzar la torre.
+     * @return Cadena de texto con las alturas de las tazas en el orden que deben colocarse, o &quot;impossible&quot; si no es posible.
+     */
+    public String solve(int n, int h) {
+<span class="fc" id="L29">        long targetH = h;</span>
+        
+<span class="pc bpc" id="L31" title="1 of 4 branches missed.">        if(targetH &lt; (2L * n - 1) || targetH &gt; ((long)n * n)) {</span>
+<span class="fc" id="L32">            return &quot;impossible&quot;;</span>
+        }
+        
+        // Estrategia 1: Base Stack (C, n, B)
+<span class="fc" id="L36">        long targetC = targetH - (2L * n - 1);</span>
+<span class="fc" id="L37">        List&lt;Integer&gt; C = getSubset(n - 1, targetC);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (C != null) {</span>
+<span class="fc" id="L39">            Set&lt;Integer&gt; cSet = new HashSet&lt;&gt;(C);</span>
+<span class="fc" id="L40">            List&lt;Integer&gt; seq = new ArrayList&lt;&gt;();</span>
+            
+<span class="fc" id="L42">            Collections.sort(C);</span>
+<span class="fc" id="L43">            seq.addAll(C);</span>
+<span class="fc" id="L44">            seq.add(n);</span>
+            
+<span class="fc" id="L46">            List&lt;Integer&gt; B = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            for (int i = 1; i &lt; n; i++) {</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">                if (!cSet.contains(i)) {</span>
+<span class="fc" id="L49">                    B.add(i);</span>
+                }
+            }
+<span class="fc" id="L52">            B.sort(Collections.reverseOrder());</span>
+<span class="fc" id="L53">            seq.addAll(B);</span>
+            
+<span class="fc" id="L55">            return formatResult(seq);</span>
+        }
+        
+        // Estrategia 2: Inner Stack (n, A, B)
+<span class="fc" id="L59">        long targetAPrime = targetH - (2L * n - 2);</span>
+<span class="fc" id="L60">        List&lt;Integer&gt; APrime = getSubset(n - 2, targetAPrime);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (APrime != null) {</span>
+<span class="fc" id="L62">            Set&lt;Integer&gt; aPrimeSet = new HashSet&lt;&gt;(APrime);</span>
+<span class="fc" id="L63">            List&lt;Integer&gt; seq = new ArrayList&lt;&gt;();</span>
+            
+<span class="fc" id="L65">            seq.add(n);</span>
+            
+<span class="fc" id="L67">            List&lt;Integer&gt; AList = new ArrayList&lt;&gt;(APrime);</span>
+<span class="fc" id="L68">            AList.add(n - 1);</span>
+<span class="fc" id="L69">            Collections.sort(AList);</span>
+<span class="fc" id="L70">            seq.addAll(AList);</span>
+            
+<span class="fc" id="L72">            List&lt;Integer&gt; B = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            for (int i = 1; i &lt;= n - 2; i++) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">                if (!aPrimeSet.contains(i)) {</span>
+<span class="fc" id="L75">                    B.add(i);</span>
+                }
+            }
+<span class="fc" id="L78">            B.sort(Collections.reverseOrder());</span>
+<span class="fc" id="L79">            seq.addAll(B);</span>
+            
+<span class="fc" id="L81">            return formatResult(seq);</span>
+        }
+        
+<span class="nc" id="L84">        return &quot;impossible&quot;;</span>
+    } // Cierre del método
+
+    /**
+     * Simula la solución del problema de la maratón.
+     * La salida es la imagen de la solución, si existe y es posible graficarla; 
+     * en caso contrario, presenta un mensaje de error.
+     * 
+     * @param n Cantidad de tazas a poner en la torre.
+     * @param h La altura requerida que debe alcanzar la torre.
+     */
+    public void simulate(int n, int h) {
+<span class="fc" id="L96">        String result = solve(n, h);</span>
+        
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (result.equals(&quot;impossible&quot;)) {</span>
+<span class="fc" id="L99">            JOptionPane.showMessageDialog(null, &quot;No es posible graficar la solución para n=&quot; + n + &quot; y h=&quot; + h + &quot; (impossible).&quot;);</span>
+<span class="fc" id="L100">            return;</span>
+        }
+        
+<span class="fc" id="L103">        int width = 200; // Ancho predeterminado para la torre</span>
+<span class="fc" id="L104">        Tower simulator = new Tower(width, h);</span>
+        
+<span class="fc" id="L106">        String[] heightsStr = result.split(&quot; &quot;);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        for (String heightStr : heightsStr) {</span>
+<span class="fc" id="L108">            int cupHeight = Integer.parseInt(heightStr);</span>
+<span class="fc" id="L109">            simulator.pushCup(&quot;cup&quot;, cupHeight); // Envía el tamaño calculado real (ej: 1, 3, 5, 7)</span>
+        }
+        
+<span class="fc" id="L112">        simulator.makeVisible();</span>
+<span class="fc" id="L113">    } // Cierre del método</span>
+
+    /**
+     * Calcula un subconjunto válido de números impares que sumen el valor objetivo.
+     * Método auxiliar privado.
+     * 
+     * @param m   El límite superior del índice (taza) a evaluar.
+     * @param S   La suma objetivo que se desea alcanzar.
+     * @return    Una lista con los índices de las tazas que forman la suma, o null si no existe combinación.
+     */
+    private List&lt;Integer&gt; getSubset(int m, long S) {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (S == 0) {</span>
+<span class="fc" id="L125">            return new ArrayList&lt;&gt;();</span>
+        }
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (m &lt;= 0) {</span>
+<span class="nc" id="L128">            return null;</span>
+        }
+        
+<span class="fc" id="L131">        int validK = -1;</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (int k = m; k &gt;= 1; k--) {</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">            if ((k % 2) == (S % 2)) {</span>
+<span class="fc" id="L134">                long minSum = (long) k * k;</span>
+<span class="fc" id="L135">                long maxSum = (long) k * (2L * m - k);</span>
+<span class="pc bpc" id="L136" title="1 of 4 branches missed.">                if (S &gt;= minSum &amp;&amp; S &lt;= maxSum) {</span>
+<span class="fc" id="L137">                    validK = k;</span>
+<span class="fc" id="L138">                    break;</span>
+                }
+            }
+        }
+        
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (validK == -1) {</span>
+<span class="fc" id="L144">            return null;</span>
+        }
+        
+<span class="fc" id="L147">        List&lt;Integer&gt; subset = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L148">        int k = validK;</span>
+<span class="fc" id="L149">        long currentS = S;</span>
+        
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        for (int i = m; i &gt;= 1; i--) {</span>
+<span class="fc" id="L152">            long x = 2L * i - 1;</span>
+<span class="pc bpc" id="L153" title="2 of 4 branches missed.">            if (k &gt; 0 &amp;&amp; currentS - x &gt;= (long)(k - 1) * (k - 1)) {</span>
+<span class="fc" id="L154">                subset.add(i);</span>
+<span class="fc" id="L155">                currentS -= x;</span>
+<span class="fc" id="L156">                k--;</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">                if (k == 0) {</span>
+<span class="fc" id="L158">                    break;</span>
+                }
+            }
+        }
+<span class="fc" id="L162">        return subset;</span>
+    } // Cierre del método
+
+    /**
+     * Formatea la secuencia de tazas a la salida requerida por el problema.
+     * Método auxiliar privado.
+     * 
+     * @param seq Lista con los índices de orden de las tazas.
+     * @return    Cadena con las alturas (2x-1) de las tazas en orden separadas por espacio.
+     */
+    private String formatResult(List&lt;Integer&gt; seq) {
+<span class="fc" id="L173">        StringJoiner result = new StringJoiner(&quot; &quot;);</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        for (int cup : seq) {</span>
+<span class="fc" id="L175">            long height = 2L * cup - 1;</span>
+<span class="fc" id="L176">            result.add(String.valueOf(height));</span>
+        }
+<span class="fc" id="L178">        return result.toString();</span>
+    } // Cierre del método
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

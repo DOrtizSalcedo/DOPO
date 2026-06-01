@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TowerC4Test.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">TowerC4Test.java</span></div><h1>TowerC4Test.java</h1><pre class="source lang-java linenums">package tower;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Clase con casos de prueba para verificar que funcionan las tazas y tapas hijas.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 30/03/2026
+ */ 
+<span class="fc" id="L15">public class TowerC4Test {</span>
+    private Tower newTower;
+
+    /**
+     * Método llamado antes de cada caso de prueba.
+     */
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L23">        newTower = new Tower(10, 60);</span>
+<span class="fc" id="L24">    } // Cierre del caso de prueba</span>
+    
+    // OpenerCup
+    /**
+     * Caso de prueba que consiste en verificar que si no hay tapas que haya en la torre
+     * entonces se queda en la base.
+     */
+    @Test
+    public void shouldEnterNormally() {
+<span class="fc" id="L33">        newTower.pushCup(&quot;opener&quot;, 1);</span>
+<span class="fc" id="L34">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L35">    } // Cierre del caso de prueba</span>
+    
+    /**
+     * Caso de prueba que verifica que una OpenerCup no deba eliminar tazas sino tapas.
+     */
+    @Test
+    public void shouldNotDeleteCups() {
+<span class="fc" id="L42">        newTower.pushCup(&quot;opener&quot;, 1);</span>
+<span class="fc" id="L43">        newTower.pushCup(&quot;opener&quot;, 2);</span>
+<span class="fc" id="L44">        assertEquals(2, newTower.stackingItems().length);</span>
+<span class="fc" id="L45">    } // Cierre del caso de prueba</span>
+    
+    // HierarchicalCup
+    /**
+     * Caso de prueba que verifica que una HierarchicalCup haya movido objetos de menor
+     * tamaño a esta y quede en la base.
+     */
+    @Test
+    public void shouldMoveSmallObjectsIfReachedBase() {
+<span class="fc" id="L54">        newTower.pushCup(&quot;normal&quot;, 1);</span>
+<span class="fc" id="L55">        newTower.pushCup(&quot;normal&quot;, 2);</span>
+<span class="fc" id="L56">        newTower.pushCup(&quot;hierarchical&quot;, 3);</span>
+<span class="fc" id="L57">        assertEquals(&quot;cup&quot;, newTower.stackingItems()[0][0]);</span>
+<span class="fc" id="L58">    } // Cierre del caso de prueba</span>
+    
+    /**
+     * Caso de prueba que comprueba que una HierarchicalCup no pueda ser eliminada si
+     * llegó a la base.
+     */
+    @Test
+    public void shouldNotPopIfReachedBase() {
+<span class="fc" id="L66">        newTower.pushCup(&quot;hierarchical&quot;, 1);</span>
+<span class="fc" id="L67">        newTower.popCup();</span>
+<span class="fc" id="L68">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L69">    } // Cierre del caso de prueba</span>
+    
+    // FearfulLid
+    /**
+     * Caso de prueba que verifica que no se pueda apilar una tapa miedosa si su
+     * compañera no existe.
+     */
+    @Test
+    public void shouldNotEnterIfPartnerCupDoesntExists() {
+<span class="fc" id="L78">        newTower.pushLid(&quot;fearful&quot;, 1);</span>
+<span class="fc" id="L79">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L80">    } // Cierre del caso de prueba</span>
+    
+    // CrazyLid
+    /**
+     * Caso de prueba que comprueba que una tapa loca pueda ser eliminada
+     * sin restricciones.
+     */
+    @Test
+    public void shouldExitNormally() {
+<span class="fc" id="L89">        newTower.pushLid(&quot;crazy&quot;, 1);</span>
+<span class="fc" id="L90">        newTower.removeLid(1);</span>
+<span class="fc" id="L91">        assertTrue(newTower.ok());</span>
+<span class="fc" id="L92">    } // Cierre del caso de prueba</span>
+    
+    /**
+     * Caso de prueba que verifica que no tape la taza compañera sino que se coloque
+     * como base.
+     */
+    @Test
+    public void shouldNotCoverPartnerCup() {
+<span class="fc" id="L100">        newTower.pushCup(&quot;normal&quot;, 1);</span>
+<span class="fc" id="L101">        newTower.pushLid(&quot;crazy&quot;, 1);</span>
+<span class="fc" id="L102">        assertEquals(&quot;lid&quot;, newTower.stackingItems()[0][0]);</span>
+<span class="fc" id="L103">    } // Cierre del caso de prueba</span>
+    
+    // HeavyCup
+    /**
+     * Caso de prueba que comprueba que una HeavyCup no pueda ser eliminada
+     * debido a que simula siempre haber llegado a la base.
+     */
+    @Test
+    public void shouldNotPopHeavyCup() {
+<span class="fc" id="L112">        newTower.pushCup(&quot;heavy&quot;, 1);</span>
+<span class="fc" id="L113">        newTower.popCup();</span>
+<span class="fc" id="L114">        assertFalse(newTower.ok());</span>
+<span class="fc" id="L115">    } // Cierre del caso de prueba</span>
+
+    /**
+     * Método llamado después de cada caso de prueba.     
+    */
+    @AfterEach
+    public void tearDown() {
+<span class="fc" id="L122">    } // Cierre del caso de prueba</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

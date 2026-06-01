@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Water
+comment0.text=\r\n\ Clase\ que\ representa\ al\ Agua\ en\ el\ bosque.\r\n\ \r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras\r\n\ @author\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 21/03/2026\r\n
+comment1.params=forest\ row\ column
+comment1.target=Water(Forest,\ int,\ int)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Water.\r\n
+comment2.params=
+comment2.target=int\ shape()
+comment2.text=\r\n\ M\u00E9todo\ que\ retorna\ la\ forma\ que\ representa\ al\ agua.\r\n\ \r\n\ @return\ int\ Retorna\ el\ tama\u00F1o\ que\ representa\ al\ agua.\r\n
+comment3.params=
+comment3.target=java.awt.Color\ getColor()
+comment3.text=\r\n\ M\u00E9todo\ que\ retorna\ el\ color\ del\ agua.\r\n\ \r\n\ @return\ Color\ Retorna\ el\ color\ que\ determina\ al\ agua.\r\n
+comment4.params=
+comment4.target=void\ ticTac()
+comment4.text=\r\n\ M\u00E9todo\ que\ contiene\ la\ l\u00F3gica\ de\ pasos\ del\ agua.\r\n
+comment5.params=
+comment5.target=boolean\ isSurroundedByGround()
+comment5.text=\r\n\ M\u00E9todo\ que\ verifica\ si\ el\ agua\ est\u00E1\ rodeada\ de\ tierra.\r\n\ \r\n\ @return\ boolean\ Retorna\ verdadero\ o\ falso\ si\ a\ su\ lado\ tiene\ tierra.\r\n
+numComments=6

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>FearfulLid.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">FearfulLid.java</span></div><h1>FearfulLid.java</h1><pre class="source lang-java linenums">package tower;
+import shapes.*;
+import java.util.*;
+import javax.swing.*;
+
+/**
+ * Clase hija que mira si no hay una taza compañera entonces no entra. Y si
+ * está tapando a su taza, no puede ser eliminada.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 28/03/2026
+ */
+public class FearfulLid extends Lid {
+    /**
+     * Constructor de la clase FearfulLid.
+     * 
+     * @param size El tamaño de la tapa miedosa.
+     * @param color El color de la tapa miedosa.
+     * @param x     La coordenada X deseada.
+     * @param y     La coordenada Y deseada.
+     * @param creationId El identificador de orden de creación.
+     */
+    public FearfulLid(int size, String color, int x, int y, int creationId) {
+<span class="fc" id="L25">        super(size, color, x, y, creationId);</span>
+<span class="fc" id="L26">        this.view.changeColor(&quot;red&quot;);</span>
+<span class="fc" id="L27">    } // Cierre del constructor</span>
+    
+    /**
+     * Método que verifica si una tapa miedosa puede entrar a la torre.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     * @return boolean Retorna true si puede entrar o false si no.
+     */
+    @Override
+    public boolean lidCanEnter(ArrayList&lt;StackItem&gt; items) {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        for(StackItem item:items) {</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">            if(item.getType().equals(&quot;cup&quot;) &amp;&amp; item.getSize() == this.size) {</span>
+<span class="nc" id="L39">                return true;</span>
+            }
+        }
+<span class="fc" id="L42">        return false;</span>
+    }// Cierre del método
+    
+    /**
+     * Método que verifica si una tapa miedosa puede salir de la torre.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     * @return boolean Retorna true si puede salir o false si no.
+     */
+    @Override
+    public boolean lidCanExit(ArrayList&lt;StackItem&gt; items, int index) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if(index == 0) return true;</span>
+        
+<span class="nc" id="L55">        StackItem cupPartner = items.get(index - 1);</span>
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        return !(cupPartner.getType().equals(&quot;cup&quot;) &amp;&amp; cupPartner.getSize() == this.size);</span>
+    }// Cierre del método
+    
+    /**
+     * Método que agrega la tapa de acuerdo a su comportamiento.
+     * En este caso no hace nada.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     */
+    @Override
+    public void actionPush(ArrayList&lt;StackItem&gt; items) {
+<span class="nc" id="L67">    } // Cierre del método</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=ShadowTest
+comment0.text=\r\n\ Clase\ que\ contiene\ casos\ de\ prueba\ para\ la\ clase\ Shadow.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment1.text=\r\n\ M\u00E9todo\ llamado\ antes\ de\ cada\ caso\ de\ prueba.\r\n
+comment2.params=
+comment2.target=void\ shouldDieWhenThingDies()
+comment2.text=\r\n\ Verifica\ que\ cuando\ una\ cosa\ (ardilla)\ muere,\ entonces\ la\ sombra\ tambi\u00E9n\ desaparece.\r\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\r\n\ M\u00E9todo\ llamado\ despu\u00E9s\ de\ cada\ caso\ de\ prueba.\r\n
+numComments=4

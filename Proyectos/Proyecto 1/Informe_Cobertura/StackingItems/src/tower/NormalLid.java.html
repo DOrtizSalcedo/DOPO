@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>NormalLid.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">StackingItems (15/04/2026 2:19:02 p. m.)</a> &gt; <a href="../../index.html" class="el_group">StackingItems</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">tower</a> &gt; <span class="el_source">NormalLid.java</span></div><h1>NormalLid.java</h1><pre class="source lang-java linenums">package tower;
+import shapes.*;
+import java.util.*;
+
+/**
+ * Clase hija que se comporta igual que la clase padre.
+ *
+ * @author Juan Pablo Cuervo Contreras
+ * @author David Felipe Ortiz Salcedo
+ * @version 28/03/2026
+ */
+public class NormalLid extends Lid {
+
+    /**
+     * Constructor de la clase NormalLid.
+     * 
+     * @param size El tamaño de la tapa (debe coincidir con el de la taza).
+     * @param color El color de la tapa.
+     * @param x     La coordenada X deseada.
+     * @param y     La coordenada Y deseada.
+     * @param creationId El identificador de orden de creación.
+     */
+    public NormalLid(int size, String color, int x, int y, int creationId) {
+<span class="fc" id="L24">        super(size, color, x, y, creationId);</span>
+<span class="fc" id="L25">    } // Cierre del constructor</span>
+    
+    /**
+     * Método que verifica si una tapa normal puede entrar a la torre.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     * @return boolean Retorna true si puede entrar la tapa normal o false si no.
+     */
+    @Override
+    public boolean lidCanEnter(ArrayList&lt;StackItem&gt; items) {
+<span class="fc" id="L35">        return true;</span>
+    } // Cierre del método
+    
+    /**
+     * Método que verifica si una tapa normal puede salir de la torre.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     * @return boolean Retorna true si la tapa normal puede salir o false si no.
+     */
+    @Override
+    public boolean lidCanExit(ArrayList&lt;StackItem&gt; items, int index) {
+<span class="fc" id="L46">        return true;</span>
+    }// Cierre del método
+    
+    /**
+     * Método que agrega la tapa de acuerdo a su comportamiento.
+     * En este caso no hace nada.
+     * 
+     * @param items La lista que contiene tazas y tapas.
+     */
+    @Override
+    public void actionPush(ArrayList&lt;StackItem&gt; items) {
+<span class="fc" id="L57">    } // Cierre del método</span>
+} // Cierre de la clase
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>StackingItems (15/04/2026 2:19:02 p. m.)</div></body></html>

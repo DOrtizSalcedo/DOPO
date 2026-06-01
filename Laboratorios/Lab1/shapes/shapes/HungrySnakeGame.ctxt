@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=HungrySnakeGame
+comment0.text=\r\n\ The\ player\ controls\ a\ snake,\ collecting\ fruits\ and\ making\ the\ snake\ growing\ while\ avoiding\ obstacles\ and\ clashing\ with\ itself.\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras,\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 1.0\r\n
+comment1.params=row\ column
+comment1.target=HungrySnakeGame(int,\ int)
+comment1.text=\r\n\ Creates\ the\ Hungry\ Snake\ Game.\r\n
+comment2.params=
+comment2.target=void\ gameState()
+comment2.text=\r\n\ Returns\ the\ length\ of\ the\ snake.\r\n
+comment3.params=direction
+comment3.target=void\ newSnakeMove(char)
+comment3.text=\r\n\ Lets\ the\ snake\ move\ in\ a\ row\ and\ in\ a\ column\ (n,\ s,\ w,\ e).\r\n
+comment4.params=direction
+comment4.target=void\ moveError(char)
+comment4.text=\r\n\ Shows\ a\ error\ message\ if\ the\ player\ did\ a\ different\ stated\ direction.\r\n
+comment5.params=m
+comment5.target=boolean\ validDirection(char)
+comment5.text=\r\n\ Validates\ if\ it's\ the\ right\ direction.\ \r\n
+comment6.params=
+comment6.target=void\ lostMessage()
+comment6.text=\r\n\ Shows\ a\ message\ indicating\ if\ the\ player\ lost\ the\ game.\r\n
+comment7.params=row\ column
+comment7.target=void\ resetHungrySnakeGame(int,\ int)
+comment7.text=\r\n\ Resets\ the\ game,\ making\ the\ snake\ to\ be\ in\ a\ new\ position.\r\n
+numComments=8

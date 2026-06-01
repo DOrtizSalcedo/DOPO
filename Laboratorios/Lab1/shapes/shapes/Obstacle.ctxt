@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Obstacle
+comment0.text=\r\n\ An\ inconvenience\ that\ tries\ to\ make\ the\ player\ lose.\r\n\r\n\ @author\ Juan\ Pablo\ Cuervo\ Contreras,\ David\ Felipe\ Ortiz\ Salcedo\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=Obstacle()
+comment1.text=\r\n\ Makes\ an\ obstacle\ in\ the\ field.\r\n
+numComments=2
