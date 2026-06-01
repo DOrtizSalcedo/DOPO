@@ -1,4 +1,4 @@
-# Desarrollo-Orientado-por-Objetos
+# Desarrollo Orientado Por Objetos
 Este repositorio contiene notas de clase, laboratorios y proyectos de la materia DOPO 2026-1.
 
 ## Autores
